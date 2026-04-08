@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -17,12 +17,17 @@
 
     <!-- Header -->
     <header class="header">
-      <div class="logo">
-        <span class="logo-icon">⬡</span>
-        <div class="logo-text">
-          <span class="logo-main">PharmaShield</span>
-          <span class="logo-sub">AI</span>
+      <div class="header-top">
+        <div class="logo">
+          <span class="logo-icon">⬡</span>
+          <div class="logo-text">
+            <span class="logo-main">PharmaShield</span>
+            <span class="logo-sub">AI</span>
+          </div>
         </div>
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light / dark">
+          <span class="theme-icon" id="themeIcon">☀</span>
+        </button>
       </div>
       <p class="tagline">Real-time drug interaction detection & risk analysis</p>
     </header>
@@ -33,6 +38,7 @@
       <!-- Patient Profile -->
       <section class="patient-section">
         <h2 class="section-title">Patient Profile <span class="optional-tag">optional</span></h2>
+
         <div class="patient-grid">
           <div class="field-group">
             <label class="field-label">Age</label>
@@ -43,18 +49,34 @@
             <input type="number" id="patientWeight" class="field-input" placeholder="e.g. 70" min="1" max="300"/>
           </div>
           <div class="field-group">
-            <label class="field-label">Condition</label>
-            <select id="patientCondition" class="field-input">
-              <option value="None">None</option>
-              <option>Diabetes</option>
-              <option>Hypertension</option>
-              <option>Heart Disease</option>
-              <option>Kidney Disease</option>
-              <option>Liver Disease</option>
-              <option>Asthma</option>
-              <option>Thyroid Disorder</option>
-              <option>Pregnancy</option>
-            </select>
+            <label class="field-label">Gender</label>
+            <div class="gender-group" id="genderGroup">
+              <button class="gender-btn" data-val="male"   onclick="selectGender(this)">♂ Male</button>
+              <button class="gender-btn" data-val="female" onclick="selectGender(this)">♀ Female</button>
+              <button class="gender-btn" data-val="other"  onclick="selectGender(this)">⊘ Other</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conditions block — JS populates chips -->
+        <div class="field-group condition-field">
+          <div class="condition-label-row">
+            <label class="field-label">
+              Conditions <span class="optional-tag">select all that apply</span>
+            </label>
+            <span class="condition-gender-hint" id="conditionGenderHint"></span>
+          </div>
+
+          <!-- Priority / gender-specific conditions -->
+          <div class="condition-section" id="prioritySection" style="display:none">
+            <span class="condition-section-label" id="priorityLabel"></span>
+            <div class="condition-tags-wrapper" id="priorityChips"></div>
+          </div>
+
+          <!-- General conditions always visible -->
+          <div class="condition-section">
+            <span class="condition-section-label" id="generalLabel">General</span>
+            <div class="condition-tags-wrapper" id="generalChips"></div>
           </div>
         </div>
       </section>
@@ -64,7 +86,9 @@
       <!-- Medicine Input -->
       <section class="input-section">
         <h2 class="section-title">Enter Medicines</h2>
-        <p class="section-desc">Type a medicine name and press <kbd>Enter</kbd> or <kbd>,</kbd> to add</p>
+        <p class="section-desc">
+          Type a medicine and press <kbd>Enter</kbd> or <kbd>,</kbd> to add. Set dosage (mg) on each tag.
+        </p>
 
         <div class="tag-input-wrapper" id="tagWrapper">
           <div class="tags-container" id="tagsContainer"></div>
@@ -78,7 +102,6 @@
         </div>
         <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
 
-        <!-- Quick add chips -->
         <div class="quick-add">
           <span class="quick-label">Quick add:</span>
           <button class="chip" onclick="addMedicine('warfarin')">warfarin</button>
@@ -121,13 +144,11 @@
         </div>
 
         <div class="interactions-list" id="interactionsList"></div>
-
         <div class="stats-bar" id="statsBar"></div>
 
-        <!-- Action Buttons -->
         <div class="action-row">
-          <button class="action-btn whatsapp-btn" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
-          <button class="action-btn history-btn" onclick="toggleHistory()">🕓 View History</button>
+          <button class="action-btn" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
+          <button class="action-btn" onclick="toggleHistory()">🕓 View History</button>
         </div>
 
         <div class="history-panel" id="historyPanel" style="display:none">
