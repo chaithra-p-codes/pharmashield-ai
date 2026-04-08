@@ -1,0 +1,27 @@
+{
+  "condition_list": [
+    "diabetes",
+    "hypertension",
+    "kidney_disease",
+    "liver_disease",
+    "heart_disease",
+    "asthma",
+    "bleeding_disorder",
+    "pregnancy",
+    "elderly",
+    "renal_impairment"
+  ],
+  "severity_map": {
+    "low": 0,
+    "moderate": 1,
+    "high": 2,
+    "critical": 3
+  },
+  "severity_labels": [
+    "Low",
+    "Moderate",
+    "High",
+    "Critical"
+  ],
+  "feature_count": 18
+}

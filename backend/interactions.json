@@ -1,0 +1,742 @@
+{
+  "interactions": [
+    {
+      "drug1": "warfarin",
+      "drug2": "aspirin",
+      "severity": "critical",
+      "effect": "Significantly increased risk of bleeding. Both drugs inhibit clotting through different mechanisms, creating an additive hemorrhagic risk.",
+      "recommendation": "Avoid combination. If necessary, use lowest effective aspirin dose with close INR monitoring.",
+      "mechanism": "Warfarin inhibits vitamin K clotting factors; aspirin inhibits platelet aggregation via COX-1.",
+      "conditions": ["bleeding_disorder", "heart_disease", "elderly"]
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "ibuprofen",
+      "severity": "high",
+      "effect": "NSAIDs displace warfarin from plasma proteins and inhibit platelet function, raising bleeding risk.",
+      "recommendation": "Use paracetamol instead of ibuprofen. Monitor INR closely if NSAID is unavoidable.",
+      "mechanism": "Protein binding displacement increases free warfarin; COX inhibition reduces platelet aggregation.",
+      "conditions": ["bleeding_disorder", "kidney_disease", "elderly"]
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "naproxen",
+      "severity": "high",
+      "effect": "Similar to ibuprofen interaction — elevated bleeding risk due to protein displacement and platelet inhibition.",
+      "recommendation": "Avoid combination. Paracetamol is the preferred analgesic for patients on warfarin.",
+      "mechanism": "NSAID protein displacement + antiplatelet effect.",
+      "conditions": ["bleeding_disorder", "elderly"]
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "fluconazole",
+      "severity": "critical",
+      "effect": "Fluconazole strongly inhibits CYP2C9, the primary enzyme metabolising warfarin, causing INR to spike dangerously.",
+      "recommendation": "Reduce warfarin dose by 25–50% and monitor INR every 2–3 days during fluconazole course.",
+      "mechanism": "CYP2C9 inhibition slows warfarin metabolism, increasing plasma levels.",
+      "conditions": ["liver_disease"]
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "clarithromycin",
+      "severity": "high",
+      "effect": "Clarithromycin inhibits CYP3A4 and reduces gut flora that produce vitamin K, potentiating warfarin.",
+      "recommendation": "Monitor INR closely when starting or stopping clarithromycin.",
+      "mechanism": "CYP3A4 inhibition + reduced vitamin K production by gut bacteria.",
+      "conditions": ["elderly", "liver_disease"]
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "amiodarone",
+      "severity": "critical",
+      "effect": "Amiodarone potently inhibits CYP2C9 and CYP3A4, causing a large and prolonged increase in warfarin effect.",
+      "recommendation": "Reduce warfarin dose by 30–50% when starting amiodarone. Monitor INR weekly for at least 2 months.",
+      "mechanism": "Dual CYP inhibition drastically reduces warfarin clearance.",
+      "conditions": ["heart_disease", "elderly"]
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "metronidazole",
+      "severity": "high",
+      "effect": "Metronidazole inhibits CYP2C9 and reduces gut vitamin K synthesis, significantly increasing INR.",
+      "recommendation": "Monitor INR every 2–3 days. Consider dose reduction of warfarin.",
+      "mechanism": "CYP2C9 inhibition + gut flora disruption.",
+      "conditions": ["liver_disease"]
+    },
+    {
+      "drug1": "aspirin",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "Ibuprofen can competitively block aspirin's irreversible platelet inhibition, reducing its cardioprotective effect.",
+      "recommendation": "Take aspirin at least 30 minutes before or 8 hours after ibuprofen to preserve antiplatelet effect.",
+      "mechanism": "Competitive COX-1 binding — ibuprofen (reversible) blocks aspirin (irreversible) access.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "aspirin",
+      "drug2": "clopidogrel",
+      "severity": "moderate",
+      "effect": "Dual antiplatelet therapy increases bleeding risk but is sometimes intentional (e.g. after stent placement).",
+      "recommendation": "Only use together when explicitly prescribed. Monitor for GI bleeding.",
+      "mechanism": "Additive platelet inhibition via COX-1 and ADP receptor blockade.",
+      "conditions": ["heart_disease", "bleeding_disorder"]
+    },
+    {
+      "drug1": "aspirin",
+      "drug2": "prednisone",
+      "severity": "moderate",
+      "effect": "Both drugs can cause gastrointestinal irritation; combination increases risk of peptic ulcer and GI bleeding.",
+      "recommendation": "Use a proton pump inhibitor (e.g. omeprazole) as gastroprotection.",
+      "mechanism": "Additive GI mucosal damage — aspirin via COX inhibition, steroids via reduced mucus secretion.",
+      "conditions": ["elderly", "heart_disease"]
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "furosemide",
+      "severity": "moderate",
+      "effect": "Furosemide increases metformin plasma levels and may impair renal function, raising lactic acidosis risk.",
+      "recommendation": "Monitor renal function and metformin levels. Reduce metformin dose if eGFR declines.",
+      "mechanism": "Furosemide reduces renal metformin clearance; dehydration worsens lactic acid accumulation.",
+      "conditions": ["kidney_disease", "diabetes", "heart_disease"]
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "NSAIDs can reduce renal blood flow, impairing metformin excretion and increasing lactic acidosis risk.",
+      "recommendation": "Avoid NSAIDs in diabetic patients on metformin, especially if kidney function is compromised.",
+      "mechanism": "NSAID-induced renal prostaglandin inhibition reduces metformin clearance.",
+      "conditions": ["kidney_disease", "diabetes"]
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "alcohol",
+      "severity": "high",
+      "effect": "Alcohol potentiates metformin-induced lactic acidosis and can cause hypoglycaemia.",
+      "recommendation": "Avoid excessive alcohol. Patients should be counselled on lactic acidosis symptoms.",
+      "mechanism": "Alcohol inhibits gluconeogenesis and increases lactate production.",
+      "conditions": ["diabetes", "liver_disease"]
+    },
+    {
+      "drug1": "lisinopril",
+      "drug2": "spironolactone",
+      "severity": "high",
+      "effect": "Both drugs raise potassium levels; combination can cause dangerous hyperkalaemia leading to cardiac arrhythmias.",
+      "recommendation": "Monitor serum potassium closely (weekly initially). Avoid in patients with renal impairment.",
+      "mechanism": "ACE inhibitor reduces aldosterone; spironolactone blocks aldosterone receptor — additive K+ retention.",
+      "conditions": ["kidney_disease", "heart_disease", "hypertension"]
+    },
+    {
+      "drug1": "lisinopril",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "NSAIDs blunt the antihypertensive effect of ACE inhibitors and can worsen kidney function.",
+      "recommendation": "Use paracetamol for pain relief. Monitor BP and renal function if NSAID is unavoidable.",
+      "mechanism": "NSAID inhibits renal prostaglandins, reducing renal blood flow and ACE inhibitor efficacy.",
+      "conditions": ["hypertension", "kidney_disease"]
+    },
+    {
+      "drug1": "lisinopril",
+      "drug2": "potassium",
+      "severity": "high",
+      "effect": "ACE inhibitors already raise potassium; additional potassium supplements can cause life-threatening hyperkalaemia.",
+      "recommendation": "Avoid potassium supplements unless hypokalaemia is confirmed. Monitor serum K+ regularly.",
+      "mechanism": "Additive reduction in renal potassium excretion.",
+      "conditions": ["kidney_disease", "heart_disease"]
+    },
+    {
+      "drug1": "atorvastatin",
+      "drug2": "clarithromycin",
+      "severity": "high",
+      "effect": "Clarithromycin inhibits CYP3A4, the enzyme that metabolises atorvastatin, causing toxic muscle levels (myopathy/rhabdomyolysis).",
+      "recommendation": "Suspend atorvastatin during clarithromycin course, or switch to a non-CYP3A4-metabolised statin.",
+      "mechanism": "CYP3A4 inhibition raises atorvastatin plasma levels 10-fold.",
+      "conditions": ["heart_disease", "liver_disease"]
+    },
+    {
+      "drug1": "atorvastatin",
+      "drug2": "amiodarone",
+      "severity": "moderate",
+      "effect": "Amiodarone inhibits CYP3A4, raising atorvastatin levels and increasing myopathy risk.",
+      "recommendation": "Use lowest effective atorvastatin dose. Monitor for muscle pain or weakness.",
+      "mechanism": "CYP3A4 inhibition by amiodarone reduces statin metabolism.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "simvastatin",
+      "drug2": "amlodipine",
+      "severity": "moderate",
+      "effect": "Amlodipine inhibits CYP3A4 moderately, increasing simvastatin exposure and myopathy risk.",
+      "recommendation": "Do not exceed simvastatin 20mg/day when co-administered with amlodipine.",
+      "mechanism": "CYP3A4 inhibition raises simvastatin AUC by ~77%.",
+      "conditions": ["heart_disease", "hypertension"]
+    },
+    {
+      "drug1": "simvastatin",
+      "drug2": "clarithromycin",
+      "severity": "critical",
+      "effect": "Severe risk of rhabdomyolysis due to massive increase in simvastatin plasma concentration.",
+      "recommendation": "Contraindicated. Withhold simvastatin during clarithromycin therapy.",
+      "mechanism": "CYP3A4 inhibition — simvastatin levels can increase more than 10-fold.",
+      "conditions": ["heart_disease", "liver_disease"]
+    },
+    {
+      "drug1": "amoxicillin",
+      "drug2": "methotrexate",
+      "severity": "high",
+      "effect": "Amoxicillin reduces renal tubular secretion of methotrexate, causing toxic accumulation.",
+      "recommendation": "Avoid combination. If unavoidable, monitor methotrexate levels and full blood count closely.",
+      "mechanism": "Competition for renal tubular secretion pathway reduces methotrexate clearance.",
+      "conditions": ["kidney_disease", "autoimmune_disorder"]
+    },
+    {
+      "drug1": "ciprofloxacin",
+      "drug2": "theophylline",
+      "severity": "high",
+      "effect": "Ciprofloxacin inhibits CYP1A2, reducing theophylline clearance and risking toxicity (seizures, arrhythmia).",
+      "recommendation": "Reduce theophylline dose by 30–50% and monitor serum theophylline levels.",
+      "mechanism": "CYP1A2 inhibition by ciprofloxacin significantly raises theophylline plasma levels.",
+      "conditions": ["asthma", "copd"]
+    },
+    {
+      "drug1": "ciprofloxacin",
+      "drug2": "antacids",
+      "severity": "moderate",
+      "effect": "Calcium, magnesium, or aluminium-containing antacids chelate ciprofloxacin in the gut, reducing absorption by up to 90%.",
+      "recommendation": "Take ciprofloxacin 2 hours before or 6 hours after antacids.",
+      "mechanism": "Metal ion chelation forms insoluble complexes with ciprofloxacin.",
+      "conditions": []
+    },
+    {
+      "drug1": "omeprazole",
+      "drug2": "clopidogrel",
+      "severity": "moderate",
+      "effect": "Omeprazole inhibits CYP2C19 which activates clopidogrel, reducing its antiplatelet efficacy by ~47%.",
+      "recommendation": "Use pantoprazole instead of omeprazole as a gastroprotectant with clopidogrel.",
+      "mechanism": "CYP2C19 inhibition impairs conversion of clopidogrel to its active thiol metabolite.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "sertraline",
+      "drug2": "tramadol",
+      "severity": "critical",
+      "effect": "High risk of serotonin syndrome — agitation, hyperthermia, tachycardia, muscle rigidity. Can be fatal.",
+      "recommendation": "Avoid combination. Use alternative analgesics (e.g. paracetamol, NSAIDs).",
+      "mechanism": "Additive serotonergic activity — SSRI + serotonin-releasing opioid.",
+      "conditions": ["depression", "anxiety"]
+    },
+    {
+      "drug1": "sertraline",
+      "drug2": "fluoxetine",
+      "severity": "high",
+      "effect": "Combining two SSRIs provides no additional antidepressant benefit and significantly raises serotonin syndrome risk.",
+      "recommendation": "Do not combine SSRIs. Taper one before starting the other with a wash-out period.",
+      "mechanism": "Additive serotonin reuptake inhibition.",
+      "conditions": ["depression", "anxiety"]
+    },
+    {
+      "drug1": "sertraline",
+      "drug2": "lithium",
+      "severity": "high",
+      "effect": "Combination can precipitate serotonin syndrome and lithium toxicity, especially if dehydration occurs.",
+      "recommendation": "Monitor lithium levels and serotonin syndrome signs. Maintain good hydration.",
+      "mechanism": "Additive serotonergic effect; sertraline may slightly increase lithium levels.",
+      "conditions": ["depression"]
+    },
+    {
+      "drug1": "fluoxetine",
+      "drug2": "tramadol",
+      "severity": "critical",
+      "effect": "High serotonin syndrome risk — similar to sertraline + tramadol interaction.",
+      "recommendation": "Contraindicated. Use non-serotonergic analgesics.",
+      "mechanism": "SSRI + serotonin-releasing analgesic — additive serotonergic toxicity.",
+      "conditions": ["depression", "anxiety"]
+    },
+    {
+      "drug1": "fluoxetine",
+      "drug2": "codeine",
+      "severity": "high",
+      "effect": "Fluoxetine inhibits CYP2D6 which converts codeine to morphine, dramatically reducing its analgesic effect while serotonin risk remains.",
+      "recommendation": "Use an alternative opioid not dependent on CYP2D6 (e.g. oxycodone cautiously, or non-opioid analgesics).",
+      "mechanism": "CYP2D6 inhibition blocks codeine activation; serotonergic risk persists.",
+      "conditions": ["depression"]
+    },
+    {
+      "drug1": "tramadol",
+      "drug2": "codeine",
+      "severity": "high",
+      "effect": "Combining two opioid analgesics significantly increases CNS and respiratory depression risk.",
+      "recommendation": "Avoid combination. Use one opioid at the appropriate dose.",
+      "mechanism": "Additive opioid CNS depression and respiratory suppression.",
+      "conditions": ["elderly"]
+    },
+    {
+      "drug1": "digoxin",
+      "drug2": "amiodarone",
+      "severity": "critical",
+      "effect": "Amiodarone increases digoxin plasma levels by ~70% by inhibiting P-glycoprotein and reducing renal clearance.",
+      "recommendation": "Reduce digoxin dose by 50% when starting amiodarone. Monitor digoxin levels and ECG.",
+      "mechanism": "P-gp inhibition + reduced renal tubular secretion raises digoxin to toxic levels.",
+      "conditions": ["heart_disease", "kidney_disease", "elderly"]
+    },
+    {
+      "drug1": "digoxin",
+      "drug2": "furosemide",
+      "severity": "moderate",
+      "effect": "Furosemide causes hypokalaemia which sensitises the heart to digoxin toxicity (arrhythmias).",
+      "recommendation": "Monitor serum potassium and digoxin levels closely. Consider potassium-sparing diuretic.",
+      "mechanism": "Hypokalaemia increases digoxin binding to Na+/K+ ATPase.",
+      "conditions": ["heart_disease", "kidney_disease"]
+    },
+    {
+      "drug1": "digoxin",
+      "drug2": "verapamil",
+      "severity": "high",
+      "effect": "Verapamil inhibits P-glycoprotein and reduces renal digoxin clearance, raising levels by 50–75%.",
+      "recommendation": "Reduce digoxin dose by 30–50% when adding verapamil. Monitor digoxin levels.",
+      "mechanism": "P-gp inhibition and reduced renal secretion of digoxin.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "amlodipine",
+      "drug2": "cyclosporine",
+      "severity": "moderate",
+      "effect": "Amlodipine inhibits cyclosporine metabolism, raising its levels and increasing nephrotoxicity risk.",
+      "recommendation": "Monitor cyclosporine blood levels closely and adjust dose as needed.",
+      "mechanism": "CYP3A4 inhibition by amlodipine reduces cyclosporine clearance.",
+      "conditions": ["kidney_disease", "autoimmune_disorder"]
+    },
+    {
+      "drug1": "levothyroxine",
+      "drug2": "calcium",
+      "severity": "moderate",
+      "effect": "Calcium supplements chelate levothyroxine in the gut, reducing its absorption by up to 40%.",
+      "recommendation": "Take levothyroxine 4 hours apart from calcium supplements.",
+      "mechanism": "Gut chelation reduces levothyroxine bioavailability.",
+      "conditions": ["thyroid_disorder", "osteoporosis"]
+    },
+    {
+      "drug1": "levothyroxine",
+      "drug2": "iron",
+      "severity": "moderate",
+      "effect": "Iron salts chelate levothyroxine in the gut, significantly reducing absorption.",
+      "recommendation": "Take levothyroxine at least 4 hours before or after iron supplements.",
+      "mechanism": "Chelation in gut lumen reduces levothyroxine bioavailability.",
+      "conditions": ["thyroid_disorder", "iron_deficiency_anemia"]
+    },
+    {
+      "drug1": "levothyroxine",
+      "drug2": "omeprazole",
+      "severity": "low",
+      "effect": "Omeprazole raises gastric pH, which can slightly reduce levothyroxine absorption in some patients.",
+      "recommendation": "Monitor thyroid function (TSH) periodically. May need slight levothyroxine dose adjustment.",
+      "mechanism": "Reduced gastric acid impairs dissolution of levothyroxine tablets.",
+      "conditions": ["thyroid_disorder"]
+    },
+    {
+      "drug1": "cetirizine",
+      "drug2": "alcohol",
+      "severity": "moderate",
+      "effect": "Cetirizine has sedating properties; alcohol potentiates CNS depression causing excessive drowsiness and impaired coordination.",
+      "recommendation": "Avoid alcohol while taking cetirizine, especially before driving.",
+      "mechanism": "Additive CNS depression.",
+      "conditions": []
+    },
+    {
+      "drug1": "cetirizine",
+      "drug2": "diazepam",
+      "severity": "moderate",
+      "effect": "Additive CNS sedation — risk of excessive drowsiness, respiratory depression in vulnerable patients.",
+      "recommendation": "Use with caution; avoid tasks requiring alertness. Reduce dose of either agent if necessary.",
+      "mechanism": "Additive CNS sedation.",
+      "conditions": ["anxiety", "elderly"]
+    },
+    {
+      "drug1": "methotrexate",
+      "drug2": "ibuprofen",
+      "severity": "critical",
+      "effect": "NSAIDs reduce renal clearance of methotrexate, causing toxic accumulation leading to bone marrow suppression, mucositis, and hepatotoxicity.",
+      "recommendation": "Avoid NSAIDs with methotrexate. Use paracetamol for pain. Monitor FBC and LFTs.",
+      "mechanism": "NSAID-induced renal prostaglandin inhibition reduces methotrexate tubular secretion.",
+      "conditions": ["kidney_disease", "autoimmune_disorder", "arthritis"]
+    },
+    {
+      "drug1": "methotrexate",
+      "drug2": "aspirin",
+      "severity": "high",
+      "effect": "Aspirin competes with methotrexate for renal tubular secretion and reduces its clearance.",
+      "recommendation": "Avoid aspirin with methotrexate, especially at high MTX doses.",
+      "mechanism": "Competitive renal tubular secretion.",
+      "conditions": ["autoimmune_disorder", "arthritis"]
+    },
+    {
+      "drug1": "lithium",
+      "drug2": "ibuprofen",
+      "severity": "high",
+      "effect": "NSAIDs reduce renal lithium clearance, causing lithium toxicity (tremor, confusion, arrhythmia).",
+      "recommendation": "Avoid NSAIDs with lithium. Use paracetamol. Monitor lithium levels if NSAID is unavoidable.",
+      "mechanism": "NSAID inhibits renal prostaglandins, reducing lithium excretion.",
+      "conditions": ["depression", "kidney_disease"]
+    },
+    {
+      "drug1": "lithium",
+      "drug2": "furosemide",
+      "severity": "high",
+      "effect": "Loop diuretics cause sodium depletion; compensatory renal lithium reabsorption raises lithium to toxic levels.",
+      "recommendation": "Monitor lithium levels closely when starting, stopping, or dose-changing furosemide.",
+      "mechanism": "Sodium depletion → increased proximal tubule Na+/Li+ reabsorption.",
+      "conditions": ["heart_disease", "kidney_disease"]
+    },
+    {
+      "drug1": "sildenafil",
+      "drug2": "nitrates",
+      "severity": "critical",
+      "effect": "Life-threatening hypotension — both drugs cause vasodilation via cGMP pathway, with profound additive effect.",
+      "recommendation": "Absolutely contraindicated. Nitrates are contraindicated within 24–48 hours of sildenafil.",
+      "mechanism": "Additive cGMP-mediated vasodilation causes catastrophic blood pressure drop.",
+      "conditions": ["heart_disease", "hypertension"]
+    },
+    {
+      "drug1": "sildenafil",
+      "drug2": "amlodipine",
+      "severity": "moderate",
+      "effect": "Both drugs lower blood pressure; combination can cause additive hypotension.",
+      "recommendation": "Monitor blood pressure. Start sildenafil at lower dose (25mg).",
+      "mechanism": "Additive vasodilatory effect via different mechanisms.",
+      "conditions": ["hypertension", "heart_disease"]
+    },
+    {
+      "drug1": "prednisone",
+      "drug2": "ibuprofen",
+      "severity": "high",
+      "effect": "Additive gastrointestinal toxicity — significantly increased risk of peptic ulceration and upper GI bleeding.",
+      "recommendation": "Avoid combination. If both are necessary, use a PPI for gastroprotection.",
+      "mechanism": "Steroids reduce mucosal prostaglandins; NSAIDs block COX-mediated prostaglandin synthesis.",
+      "conditions": ["elderly", "arthritis"]
+    },
+    {
+      "drug1": "prednisone",
+      "drug2": "metformin",
+      "severity": "moderate",
+      "effect": "Corticosteroids raise blood glucose by inducing insulin resistance, opposing metformin's action.",
+      "recommendation": "Monitor blood glucose closely. Metformin dose may need temporary increase.",
+      "mechanism": "Glucocorticoid-induced gluconeogenesis and insulin resistance.",
+      "conditions": ["diabetes"]
+    },
+    {
+      "drug1": "dexamethasone",
+      "drug2": "ibuprofen",
+      "severity": "high",
+      "effect": "Same as prednisone + ibuprofen — additive GI toxicity and bleeding risk.",
+      "recommendation": "Avoid. Use PPI if combination is unavoidable.",
+      "mechanism": "Additive gastrointestinal mucosal damage.",
+      "conditions": ["elderly", "arthritis"]
+    },
+    {
+      "drug1": "losartan",
+      "drug2": "spironolactone",
+      "severity": "high",
+      "effect": "Both drugs increase serum potassium — combination risks severe hyperkalaemia.",
+      "recommendation": "Monitor potassium levels closely, especially in patients with CKD.",
+      "mechanism": "ARB + aldosterone antagonist — additive potassium retention.",
+      "conditions": ["kidney_disease", "heart_disease", "hypertension"]
+    },
+    {
+      "drug1": "losartan",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "NSAIDs blunt ARB antihypertensive effect and impair renal function.",
+      "recommendation": "Avoid NSAIDs. Use paracetamol instead.",
+      "mechanism": "NSAID-induced prostaglandin inhibition counteracts losartan's vasodilatory effect.",
+      "conditions": ["hypertension", "kidney_disease"]
+    },
+    {
+      "drug1": "clonazepam",
+      "drug2": "alcohol",
+      "severity": "critical",
+      "effect": "Profound CNS and respiratory depression — risk of coma or death.",
+      "recommendation": "Absolutely avoid alcohol with benzodiazepines.",
+      "mechanism": "Additive GABA-A receptor potentiation causes extreme CNS depression.",
+      "conditions": ["anxiety", "epilepsy"]
+    },
+    {
+      "drug1": "clonazepam",
+      "drug2": "codeine",
+      "severity": "high",
+      "effect": "Additive CNS and respiratory depression — risk of respiratory arrest, especially in elderly.",
+      "recommendation": "Avoid combination. If opioid is necessary, use with caution at lowest dose with monitoring.",
+      "mechanism": "Benzodiazepine GABA potentiation + opioid CNS/respiratory depression.",
+      "conditions": ["elderly", "anxiety"]
+    },
+    {
+      "drug1": "diazepam",
+      "drug2": "alcohol",
+      "severity": "critical",
+      "effect": "Life-threatening CNS and respiratory depression — same as clonazepam + alcohol.",
+      "recommendation": "Absolutely contraindicated.",
+      "mechanism": "Additive GABA-A potentiation.",
+      "conditions": ["anxiety"]
+    },
+    {
+      "drug1": "diazepam",
+      "drug2": "tramadol",
+      "severity": "high",
+      "effect": "Additive CNS depression and seizure threshold lowering. Tramadol also lowers seizure threshold.",
+      "recommendation": "Avoid. If pain management is needed, use non-CNS-active alternatives.",
+      "mechanism": "CNS depression + tramadol's proconvulsant risk in patients on benzodiazepines.",
+      "conditions": ["anxiety", "epilepsy"]
+    },
+    {
+      "drug1": "alprazolam",
+      "drug2": "clarithromycin",
+      "severity": "high",
+      "effect": "Clarithromycin inhibits CYP3A4 which metabolises alprazolam, causing excessive sedation and respiratory depression.",
+      "recommendation": "Reduce alprazolam dose significantly or use alternative anxiolytic.",
+      "mechanism": "CYP3A4 inhibition raises alprazolam plasma levels 2–4 fold.",
+      "conditions": ["anxiety", "elderly"]
+    },
+    {
+      "drug1": "quetiapine",
+      "drug2": "clarithromycin",
+      "severity": "high",
+      "effect": "CYP3A4 inhibition raises quetiapine levels, increasing QT prolongation risk and sedation.",
+      "recommendation": "Avoid combination. Consider alternative antibiotic.",
+      "mechanism": "CYP3A4 inhibition reduces quetiapine clearance, risking cardiac arrhythmia.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "quetiapine",
+      "drug2": "tramadol",
+      "severity": "high",
+      "effect": "Additive QT prolongation risk and serotonin syndrome risk.",
+      "recommendation": "Avoid combination. Monitor ECG if co-prescription is unavoidable.",
+      "mechanism": "Additive QT prolongation + serotonergic effects.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "olanzapine",
+      "drug2": "diazepam",
+      "severity": "high",
+      "effect": "Additive CNS depression and risk of cardiorespiratory collapse, especially with IM formulations.",
+      "recommendation": "Avoid IM combination. Oral combination requires close monitoring.",
+      "mechanism": "Additive CNS/respiratory depression.",
+      "conditions": ["elderly"]
+    },
+    {
+      "drug1": "furosemide",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "NSAIDs blunt the diuretic effect of furosemide and can worsen renal function and heart failure.",
+      "recommendation": "Avoid NSAIDs in patients on furosemide. Monitor weight and renal function.",
+      "mechanism": "NSAID-induced prostaglandin inhibition reduces furosemide efficacy.",
+      "conditions": ["heart_disease", "kidney_disease"]
+    },
+    {
+      "drug1": "atenolol",
+      "drug2": "verapamil",
+      "severity": "critical",
+      "effect": "Both drugs slow heart rate and cardiac conduction — combination can cause complete heart block or cardiac arrest.",
+      "recommendation": "Contraindicated. Do not combine beta-blockers with non-dihydropyridine calcium channel blockers.",
+      "mechanism": "Additive AV nodal depression and negative chronotropy/inotropy.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "atenolol",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "NSAIDs reduce the antihypertensive effect of beta-blockers through prostaglandin inhibition.",
+      "recommendation": "Use paracetamol instead. Monitor blood pressure if NSAID is needed.",
+      "mechanism": "NSAID-induced prostaglandin inhibition opposes vasodilatory effects of beta-blockade.",
+      "conditions": ["hypertension", "heart_disease"]
+    },
+    {
+      "drug1": "paracetamol",
+      "drug2": "alcohol",
+      "severity": "high",
+      "effect": "Chronic alcohol use induces CYP2E1, converting more paracetamol to NAPQI (hepatotoxic metabolite), causing liver damage even at normal doses.",
+      "recommendation": "Avoid paracetamol in heavy drinkers. Use with caution in mild-moderate alcohol consumption.",
+      "mechanism": "CYP2E1 induction depletes glutathione and increases toxic NAPQI formation.",
+      "conditions": ["liver_disease"]
+    },
+    {
+      "drug1": "paracetamol",
+      "drug2": "warfarin",
+      "severity": "moderate",
+      "effect": "Regular paracetamol use (>2g/day) can augment warfarin's anticoagulant effect by an unknown mechanism.",
+      "recommendation": "Use lowest effective paracetamol dose. Monitor INR if paracetamol is used regularly.",
+      "mechanism": "Possible inhibition of clotting factor synthesis; mechanism not fully established.",
+      "conditions": ["bleeding_disorder", "elderly"]
+    },
+    {
+      "drug1": "ibuprofen",
+      "drug2": "aspirin",
+      "severity": "moderate",
+      "effect": "Competitive COX-1 binding reduces aspirin's antiplatelet effect. Combined GI irritation risk.",
+      "recommendation": "Space doses appropriately if both are needed. Avoid if GI risk is high.",
+      "mechanism": "Ibuprofen reversibly blocks COX-1, preventing aspirin's irreversible acetylation.",
+      "conditions": ["heart_disease", "elderly"]
+    },
+    {
+      "drug1": "spironolactone",
+      "drug2": "potassium",
+      "severity": "high",
+      "effect": "Spironolactone already causes potassium retention; potassium supplements can cause life-threatening hyperkalaemia.",
+      "recommendation": "Avoid potassium supplements with spironolactone unless hypokalaemia is documented.",
+      "mechanism": "Additive potassium retention via aldosterone blockade + exogenous intake.",
+      "conditions": ["kidney_disease", "heart_disease"]
+    },
+    {
+      "drug1": "clopidogrel",
+      "drug2": "omeprazole",
+      "severity": "moderate",
+      "effect": "Omeprazole inhibits CYP2C19 activation of clopidogrel, reducing antiplatelet effect by ~40–50%.",
+      "recommendation": "Switch to pantoprazole for gastroprotection in patients on clopidogrel.",
+      "mechanism": "CYP2C19 competitive inhibition prevents prodrug activation.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "contrast_dye",
+      "severity": "high",
+      "effect": "IV contrast dye can cause acute kidney injury; metformin accumulates in renal failure causing lactic acidosis.",
+      "recommendation": "Withhold metformin 48 hours before and after contrast procedures.",
+      "mechanism": "Contrast-induced nephropathy impairs metformin renal clearance.",
+      "conditions": ["diabetes", "kidney_disease"]
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "omeprazole",
+      "severity": "moderate",
+      "effect": "Omeprazole weakly inhibits CYP2C19 which contributes to warfarin metabolism, causing a mild INR increase.",
+      "recommendation": "Monitor INR when starting or stopping omeprazole in warfarin patients.",
+      "mechanism": "Weak CYP2C19 inhibition mildly reduces warfarin clearance.",
+      "conditions": ["elderly", "bleeding_disorder"]
+    },
+    {
+      "drug1": "sertraline",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "SSRIs inhibit platelet serotonin uptake; NSAIDs inhibit platelet aggregation — additive GI and systemic bleeding risk.",
+      "recommendation": "Use with caution. Consider adding a PPI. Prefer paracetamol for analgesia.",
+      "mechanism": "Additive platelet function impairment increases bleeding risk.",
+      "conditions": ["depression", "bleeding_disorder"]
+    },
+    {
+      "drug1": "fluoxetine",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "Same as sertraline + ibuprofen — combined platelet inhibition raises GI bleeding risk.",
+      "recommendation": "Prefer paracetamol. Add PPI if NSAID is necessary.",
+      "mechanism": "Additive antiplatelet effect via platelet serotonin depletion and COX inhibition.",
+      "conditions": ["depression", "bleeding_disorder"]
+    },
+    {
+      "drug1": "amiodarone",
+      "drug2": "simvastatin",
+      "severity": "high",
+      "effect": "Amiodarone inhibits CYP3A4, causing dangerous elevation in simvastatin levels and myopathy risk.",
+      "recommendation": "Do not exceed simvastatin 20mg/day with amiodarone. Prefer rosuvastatin.",
+      "mechanism": "CYP3A4 inhibition significantly raises simvastatin AUC.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "verapamil",
+      "drug2": "simvastatin",
+      "severity": "moderate",
+      "effect": "Verapamil inhibits CYP3A4 and P-gp, raising simvastatin levels and myopathy risk.",
+      "recommendation": "Do not exceed simvastatin 10–20mg/day when co-prescribed with verapamil.",
+      "mechanism": "CYP3A4 and P-gp inhibition by verapamil.",
+      "conditions": ["heart_disease"]
+    },
+    {
+      "drug1": "levothyroxine",
+      "drug2": "warfarin",
+      "severity": "moderate",
+      "effect": "Thyroid hormones increase catabolism of vitamin K clotting factors, enhancing warfarin's anticoagulant effect.",
+      "recommendation": "Monitor INR closely when thyroid replacement is initiated or adjusted.",
+      "mechanism": "Increased clotting factor turnover potentiates anticoagulation.",
+      "conditions": ["thyroid_disorder", "bleeding_disorder"]
+    },
+    {
+      "drug1": "atenolol",
+      "drug2": "metformin",
+      "severity": "low",
+      "effect": "Beta-blockers can mask symptoms of hypoglycaemia (tachycardia) in diabetic patients on metformin.",
+      "recommendation": "Monitor blood glucose regularly. Educate patient on non-adrenergic hypoglycaemia symptoms (sweating, pallor).",
+      "mechanism": "Beta-blockade masks tachycardia but not diaphoresis as hypoglycaemia sign.",
+      "conditions": ["diabetes", "hypertension", "heart_disease"]
+    },
+    {
+      "drug1": "quetiapine",
+      "drug2": "metformin",
+      "severity": "low",
+      "effect": "Atypical antipsychotics can cause weight gain and impair glucose tolerance, opposing metformin's benefits.",
+      "recommendation": "Monitor HbA1c and weight regularly. Consider metformin dose adjustment.",
+      "mechanism": "Quetiapine-induced insulin resistance and weight gain.",
+      "conditions": ["diabetes", "obesity"]
+    },
+    {
+      "drug1": "prednisone",
+      "drug2": "warfarin",
+      "severity": "moderate",
+      "effect": "High-dose steroids can have variable effects on INR, sometimes increasing anticoagulant effect.",
+      "recommendation": "Monitor INR closely when starting, stopping, or changing corticosteroid dose.",
+      "mechanism": "Steroids may increase clotting factor catabolism at high doses.",
+      "conditions": ["bleeding_disorder", "autoimmune_disorder"]
+    },
+    {
+      "drug1": "furosemide",
+      "drug2": "aminoglycosides",
+      "severity": "high",
+      "effect": "Both drugs are ototoxic; combination significantly increases risk of permanent hearing loss.",
+      "recommendation": "Avoid combination. If unavoidable, monitor hearing and use minimum effective doses.",
+      "mechanism": "Additive cochlear hair cell damage.",
+      "conditions": ["kidney_disease"]
+    },
+    {
+      "drug1": "ciprofloxacin",
+      "drug2": "warfarin",
+      "severity": "high",
+      "effect": "Ciprofloxacin inhibits CYP1A2 and reduces gut vitamin K synthesis, significantly raising INR.",
+      "recommendation": "Monitor INR every 2–3 days during and for 5–7 days after ciprofloxacin course.",
+      "mechanism": "CYP1A2 inhibition + gut flora disruption reduces vitamin K.",
+      "conditions": ["bleeding_disorder", "elderly"]
+    },
+    {
+      "drug1": "methotrexate",
+      "drug2": "trimethoprim",
+      "severity": "critical",
+      "effect": "Both drugs inhibit dihydrofolate reductase — additive folate deficiency causes severe bone marrow suppression.",
+      "recommendation": "Contraindicated. Use alternative antibiotic. If unavoidable, increase folinic acid supplementation.",
+      "mechanism": "Additive DHFR inhibition depletes tetrahydrofolate causing megaloblastic crisis.",
+      "conditions": ["autoimmune_disorder", "kidney_disease"]
+    },
+    {
+      "drug1": "lithium",
+      "drug2": "diuretics",
+      "severity": "high",
+      "effect": "Thiazide and loop diuretics cause sodium depletion, triggering compensatory lithium reabsorption and toxicity.",
+      "recommendation": "Monitor lithium levels closely. Adjust dose if diuretic is started or stopped.",
+      "mechanism": "Sodium depletion increases proximal tubular lithium reabsorption.",
+      "conditions": ["hypertension", "heart_disease", "kidney_disease"]
+    },
+    {
+      "drug1": "sildenafil",
+      "drug2": "alpha_blockers",
+      "severity": "high",
+      "effect": "Additive vasodilation causing severe symptomatic hypotension, especially postural.",
+      "recommendation": "Start sildenafil at 25mg. Ensure patient is haemodynamically stable before combining.",
+      "mechanism": "Additive vasodilation via PDE5 inhibition and alpha-1 blockade.",
+      "conditions": ["hypertension", "prostate_enlargement"]
+    },
+    {
+      "drug1": "omeprazole",
+      "drug2": "methotrexate",
+      "severity": "moderate",
+      "effect": "Proton pump inhibitors can reduce renal tubular methotrexate secretion, increasing toxicity risk.",
+      "recommendation": "Monitor methotrexate levels and FBC during PPI co-administration.",
+      "mechanism": "PPI inhibits renal OAT3 transporter reducing methotrexate excretion.",
+      "conditions": ["autoimmune_disorder", "kidney_disease"]
+    }
+  ]
+}
