@@ -1,65 +1,101 @@
 // ================================================
-//   PharmaShield AI — script.js (v3)
+//   PharmaShield AI — script.js (v5 - Fixed)
+//   • ML risk scoring + confidence display
+//   • Per-pair ML breakdown cards (single winner stat)
 //   • Gender-aware condition prioritisation
 //   • Dark / Light theme toggle
 //   • Free-type dosage + ± stepper + presets
+//   • AI summary always matches ML risk level
 // ================================================
 
 const API_BASE = 'http://127.0.0.1:5000';
 
 // ─── Condition Data ───────────────────────────────
-// Each entry: { val, label, genders }
-// genders: ['female'] | ['male'] | ['all']
 const ALL_CONDITIONS = [
   // ── Female-priority ──
-  { val: 'PCOS',                  label: 'PCOS',                  genders: ['female'] },
-  { val: 'PCOD',                  label: 'PCOD',                  genders: ['female'] },
-  { val: 'Endometriosis',         label: 'Endometriosis',         genders: ['female'] },
-  { val: 'Pregnancy',             label: 'Pregnancy',             genders: ['female'] },
-  { val: 'Postpartum',            label: 'Postpartum',            genders: ['female'] },
-  { val: 'Menopause',             label: 'Menopause',             genders: ['female'] },
-  { val: 'Osteoporosis',          label: 'Osteoporosis',          genders: ['female'] },
-  { val: 'Breast Cancer',         label: 'Breast Cancer',         genders: ['female'] },
-  { val: 'Cervical Cancer',       label: 'Cervical Cancer',       genders: ['female'] },
-  { val: 'Ovarian Cysts',         label: 'Ovarian Cysts',         genders: ['female'] },
-  { val: 'Iron Deficiency Anemia',label: 'Iron Deficiency Anemia',genders: ['female'] },
-  { val: 'Lupus',                 label: 'Lupus',                 genders: ['female'] },
+  { val: 'PCOS',                   label: 'PCOS',                   genders: ['female'] },
+  { val: 'PCOD',                   label: 'PCOD',                   genders: ['female'] },
+  { val: 'Endometriosis',          label: 'Endometriosis',          genders: ['female'] },
+  { val: 'Pregnancy',              label: 'Pregnancy',              genders: ['female'] },
+  { val: 'Postpartum',             label: 'Postpartum',             genders: ['female'] },
+  { val: 'Menopause',              label: 'Menopause',              genders: ['female'] },
+  { val: 'Osteoporosis',           label: 'Osteoporosis',           genders: ['female'] },
+  { val: 'Breast Cancer',          label: 'Breast Cancer',          genders: ['female'] },
+  { val: 'Cervical Cancer',        label: 'Cervical Cancer',        genders: ['female'] },
+  { val: 'Ovarian Cysts',          label: 'Ovarian Cysts',          genders: ['female'] },
+  { val: 'Iron Deficiency Anemia', label: 'Iron Deficiency Anemia', genders: ['female'] },
+  { val: 'Lupus',                  label: 'Lupus',                  genders: ['female'] },
 
   // ── Male-priority ──
-  { val: 'Prostate Enlargement',  label: 'Prostate Enlargement',  genders: ['male'] },
-  { val: 'Prostate Cancer',       label: 'Prostate Cancer',       genders: ['male'] },
-  { val: 'Erectile Dysfunction',  label: 'Erectile Dysfunction',  genders: ['male'] },
-  { val: 'Low Testosterone',      label: 'Low Testosterone',      genders: ['male'] },
-  { val: 'Gout',                  label: 'Gout',                  genders: ['male'] },
-  { val: 'Sleep Apnea',           label: 'Sleep Apnea',           genders: ['male'] },
-  { val: 'Kidney Stones',         label: 'Kidney Stones',         genders: ['male'] },
+  { val: 'Prostate Enlargement',   label: 'Prostate Enlargement',   genders: ['male'] },
+  { val: 'Prostate Cancer',        label: 'Prostate Cancer',        genders: ['male'] },
+  { val: 'Erectile Dysfunction',   label: 'Erectile Dysfunction',   genders: ['male'] },
+  { val: 'Low Testosterone',       label: 'Low Testosterone',       genders: ['male'] },
+  { val: 'Gout',                   label: 'Gout',                   genders: ['male'] },
+  { val: 'Sleep Apnea',            label: 'Sleep Apnea',            genders: ['male'] },
+  { val: 'Kidney Stones',          label: 'Kidney Stones',          genders: ['male'] },
 
   // ── General (all) ──
-  { val: 'Diabetes',              label: 'Diabetes',              genders: ['all'] },
-  { val: 'Hypertension',          label: 'Hypertension',          genders: ['all'] },
-  { val: 'Heart Disease',         label: 'Heart Disease',         genders: ['all'] },
-  { val: 'Kidney Disease',        label: 'Kidney Disease',        genders: ['all'] },
-  { val: 'Liver Disease',         label: 'Liver Disease',         genders: ['all'] },
-  { val: 'Asthma',                label: 'Asthma',                genders: ['all'] },
-  { val: 'Thyroid Disorder',      label: 'Thyroid Disorder',      genders: ['all'] },
-  { val: 'COPD',                  label: 'COPD',                  genders: ['all'] },
-  { val: 'Epilepsy',              label: 'Epilepsy',              genders: ['all'] },
-  { val: 'Depression',            label: 'Depression',            genders: ['all'] },
-  { val: 'Anxiety',               label: 'Anxiety',               genders: ['all'] },
-  { val: 'Arthritis',             label: 'Arthritis',             genders: ['all'] },
-  { val: 'High Cholesterol',      label: 'High Cholesterol',      genders: ['all'] },
-  { val: 'Migraine',              label: 'Migraine',              genders: ['all'] },
-  { val: 'Obesity',               label: 'Obesity',               genders: ['all'] },
-  { val: 'Cancer (Other)',        label: 'Cancer (Other)',         genders: ['all'] },
-  { val: 'HIV/AIDS',              label: 'HIV / AIDS',            genders: ['all'] },
-  { val: 'Autoimmune Disorder',   label: 'Autoimmune',            genders: ['all'] },
+  { val: 'Diabetes',               label: 'Diabetes',               genders: ['all'] },
+  { val: 'Hypertension',           label: 'Hypertension',           genders: ['all'] },
+  { val: 'Heart Disease',          label: 'Heart Disease',          genders: ['all'] },
+  { val: 'Kidney Disease',         label: 'Kidney Disease',         genders: ['all'] },
+  { val: 'Liver Disease',          label: 'Liver Disease',          genders: ['all'] },
+  { val: 'Asthma',                 label: 'Asthma',                 genders: ['all'] },
+  { val: 'Thyroid Disorder',       label: 'Thyroid Disorder',       genders: ['all'] },
+  { val: 'COPD',                   label: 'COPD',                   genders: ['all'] },
+  { val: 'Epilepsy',               label: 'Epilepsy',               genders: ['all'] },
+  { val: 'Depression',             label: 'Depression',             genders: ['all'] },
+  { val: 'Anxiety',                label: 'Anxiety',                genders: ['all'] },
+  { val: 'Arthritis',              label: 'Arthritis',              genders: ['all'] },
+  { val: 'High Cholesterol',       label: 'High Cholesterol',       genders: ['all'] },
+  { val: 'Migraine',               label: 'Migraine',               genders: ['all'] },
+  { val: 'Obesity',                label: 'Obesity',                genders: ['all'] },
+  { val: 'Cancer (Other)',         label: 'Cancer (Other)',          genders: ['all'] },
+  { val: 'HIV/AIDS',               label: 'HIV / AIDS',             genders: ['all'] },
+  { val: 'Autoimmune Disorder',    label: 'Autoimmune',             genders: ['all'] },
 ];
 
 const DOSAGE_PRESETS = [5, 10, 25, 50, 100, 200, 250, 500];
 
+// ─── ML Risk Config ───────────────────────────────
+const RISK_CONFIG = {
+  // ── ML risk labels ──
+  Critical: {
+    icon: '⚠️', label: 'CRITICAL INTERACTION DETECTED',
+    detail: 'ML model detected critical drug interactions',
+    badge: '⚠ CRITICAL', cssClass: 'dangerous'
+  },
+  High: {
+    icon: '⚠️', label: 'HIGH RISK INTERACTION DETECTED',
+    detail: 'ML model flagged high-severity interaction(s)',
+    badge: '⚠ HIGH RISK', cssClass: 'dangerous'
+  },
+  Moderate: {
+    icon: '⚡', label: 'MODERATE RISK DETECTED',
+    detail: 'ML model detected interactions requiring attention',
+    badge: '⚡ MODERATE', cssClass: 'moderate'
+  },
+  Low: {
+    icon: '✓', label: 'LOW RISK / COMBINATION APPEARS SAFE',
+    detail: 'ML model found no significant interactions',
+    badge: '✓ LOW RISK', cssClass: 'safe'
+  },
+  Unknown: {
+    icon: '?', label: 'RISK UNKNOWN',
+    detail: 'ML model unavailable — see AI explanation below',
+    badge: '? UNKNOWN', cssClass: 'safe'
+  },
+  // ── Legacy API labels (backward-compat) ──
+  dangerous:             { icon: '⚠️', label: 'DANGEROUS INTERACTION DETECTED',  detail: 'Critical interaction(s) found',                badge: '⚠ HIGH RISK', cssClass: 'dangerous' },
+  moderate:              { icon: '⚡', label: 'MODERATE RISK DETECTED',           detail: 'Interaction(s) require attention',              badge: '⚡ MODERATE',  cssClass: 'moderate'  },
+  safe:                  { icon: '✓',  label: 'COMBINATION APPEARS SAFE',         detail: 'No significant interactions detected',          badge: '✓ SAFE',       cssClass: 'safe'      },
+  no_interactions_found: { icon: '✓',  label: 'NO INTERACTIONS FOUND',            detail: 'No recorded interactions for this combination', badge: '✓ CLEAR',      cssClass: 'safe'      },
+};
+
 // ─── State ────────────────────────────────────────
-window.medicines         = [];
-window.selectedGender    = null;
+window.medicines          = [];
+window.selectedGender     = null;
 window.selectedConditions = new Set();
 
 let allMedicinesList  = [];
@@ -68,7 +104,7 @@ let lastResult        = null;
 
 // ─── Theme ────────────────────────────────────────
 function toggleTheme() {
-  const html = document.documentElement;
+  const html   = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
   html.setAttribute('data-theme', isDark ? 'light' : 'dark');
   document.getElementById('themeIcon').textContent = isDark ? '☽' : '☀';
@@ -81,13 +117,36 @@ function applyStoredTheme() {
   document.getElementById('themeIcon').textContent = saved === 'dark' ? '☀' : '☽';
 }
 
-// ─── On Load ─────────────────────────────────────
+// ─── On Load ──────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   applyStoredTheme();
   fetchMedicinesList();
   setupInputEvents();
-  renderConditions(null); // render all-general by default
+  renderConditions(null);
+  checkMLStatus();
 });
+
+// ─── ML Status Check ──────────────────────────────
+async function checkMLStatus() {
+  try {
+    const res  = await fetch(`${API_BASE}/api/model-status`);
+    const data = await res.json();
+    const badge = document.getElementById('mlStatusBadge');
+    if (!badge) return;
+    if (data.ml_ready) {
+      badge.textContent = '🤖 ML Active';
+      badge.className   = 'ml-badge ml-active';
+      badge.title       = 'Machine Learning model is loaded and scoring interactions';
+    } else {
+      badge.textContent = '⚠ ML Offline';
+      badge.className   = 'ml-badge ml-offline';
+      badge.title       = data.message || 'Run: python ml/train_model.py';
+    }
+    badge.style.display = 'inline-flex';
+  } catch {
+    // Silently ignore
+  }
+}
 
 // ─── Fetch Medicine List ──────────────────────────
 async function fetchMedicinesList() {
@@ -126,7 +185,6 @@ function renderConditions(gender) {
   const generalLabel    = document.getElementById('generalLabel');
   const hint            = document.getElementById('conditionGenderHint');
 
-  // Separate priority vs general
   let priority = [];
   let general  = ALL_CONDITIONS.filter(c => c.genders.includes('all'));
 
@@ -153,13 +211,8 @@ function renderConditions(gender) {
   priorityChips.innerHTML = '';
   generalChips.innerHTML  = '';
 
-  priority.forEach(c => {
-    priorityChips.appendChild(makeConditionChip(c, true));
-  });
-
-  general.forEach(c => {
-    generalChips.appendChild(makeConditionChip(c, false));
-  });
+  priority.forEach(c => priorityChips.appendChild(makeConditionChip(c, true)));
+  general.forEach(c  => generalChips.appendChild(makeConditionChip(c, false)));
 }
 
 function makeConditionChip(cond, isPriority) {
@@ -181,7 +234,6 @@ window.toggleCondition = function(btn) {
     window.selectedConditions.add(val);
     btn.classList.add('selected');
   }
-  // Sync twin chips (same val may appear in both priority + general if gender switches)
   document.querySelectorAll(`.cond-chip[data-val="${CSS.escape(val)}"]`).forEach(b => {
     b.classList.toggle('selected', window.selectedConditions.has(val));
   });
@@ -299,8 +351,8 @@ function renderMedicineTags() {
   window.medicines.forEach(med => {
     const safeId = med.name.replace(/\W/g, '_');
     const tag    = document.createElement('div');
-    tag.className    = 'med-tag';
-    tag.dataset.med  = med.name;
+    tag.className   = 'med-tag';
+    tag.dataset.med = med.name;
     tag.innerHTML = `
       <span class="med-tag-name">${med.name}</span>
       <div class="med-tag-dosage-wrap">
@@ -354,7 +406,7 @@ window.finaliseDosage = function(name, input) {
 };
 
 window.dosageKeydown = function(e, name) {
-  if (e.key === 'ArrowUp')   { e.preventDefault(); stepDosage(name, 5); }
+  if (e.key === 'ArrowUp')   { e.preventDefault(); stepDosage(name, 5);  }
   if (e.key === 'ArrowDown') { e.preventDefault(); stepDosage(name, -5); }
   if (e.key === 'Enter')     { e.target.blur(); }
 };
@@ -402,6 +454,25 @@ function getPatientProfile() {
   };
 }
 
+// ─── Build API Payload ────────────────────────────
+function buildApiPayload(profile) {
+  return {
+    medicines: profile.medicines,
+    patient: {
+      age:        profile.age,
+      weight:     profile.weight,
+      gender:     profile.gender,
+      conditions: profile.conditions
+    },
+    drugs: window.medicines.map(m => ({
+      name:     m.name,
+      quantity: parseInt(m.dosage, 10) || 1
+    })),
+    gender:     profile.gender,
+    conditions: profile.conditions
+  };
+}
+
 // ─── Main API Call ────────────────────────────────
 async function checkInteractions() {
   if (window.medicines.length < 2) {
@@ -414,20 +485,13 @@ async function checkInteractions() {
   hideResults();
 
   const profile = getPatientProfile();
+  const payload = buildApiPayload(profile);
 
   try {
     const res = await fetch(`${API_BASE}/api/check`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
-        medicines: profile.medicines,
-        patient: {
-          age:        profile.age,
-          weight:     profile.weight,
-          gender:     profile.gender,
-          conditions: profile.conditions
-        }
-      })
+      body:    JSON.stringify(payload)
     });
 
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
@@ -450,41 +514,100 @@ function renderResults(data) {
   const section = document.getElementById('resultsSection');
   section.style.display = 'block';
   renderRiskBanner(data);
+  renderMLSummary(data);
   renderAIExplanation(data);
   renderInteractionCards(data);
+  renderMLPairBreakdown(data);
   renderStats(data);
   section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// ─── Risk Banner ──────────────────────────────────
+// Always driven by ML overall_risk (the single source of truth)
 function renderRiskBanner(data) {
   const banner = document.getElementById('riskBanner');
-  const risk   = data.overall_risk;
-  banner.className = 'risk-banner ' + risk;
 
-  const config = {
-    dangerous:             { icon: '⚠️', label: 'DANGEROUS INTERACTION DETECTED',  detail: `${data.interactions_found} critical interaction(s) found`,     badge: '⚠ HIGH RISK' },
-    moderate:              { icon: '⚡', label: 'MODERATE RISK DETECTED',           detail: `${data.interactions_found} interaction(s) require attention`,   badge: '⚡ MODERATE'  },
-    safe:                  { icon: '✓',  label: 'COMBINATION APPEARS SAFE',         detail: 'No harmful interactions detected in database',                  badge: '✓ SAFE'       },
-    no_interactions_found: { icon: '✓',  label: 'NO INTERACTIONS FOUND',            detail: 'These medicines have no recorded interactions',                 badge: '✓ CLEAR'      }
-  };
+  // ML overall_risk is the authoritative source ("High", "Critical", etc.)
+  const mlRisk = data.ml_result?.overall_risk;
+  const risk   = mlRisk || 'Low';
 
-  const c = config[risk] || config['safe'];
+  const c = RISK_CONFIG[risk] || RISK_CONFIG['Low'];
+  banner.className = 'risk-banner ' + c.cssClass;
+
+  const interactionCount = data.ml_result?.pairs?.length ?? 0;
+  const confidence       = Math.round((data.ml_result?.confidence || 0) * 100);
+  const detail = `${interactionCount} interaction pair(s) analysed · ML confidence: ${confidence}%`;
+
   document.getElementById('riskIcon').textContent   = c.icon;
   document.getElementById('riskLabel').textContent  = c.label;
-  document.getElementById('riskDetail').textContent = c.detail;
+  document.getElementById('riskDetail').textContent = detail;
   document.getElementById('riskBadge').textContent  = c.badge;
 }
 
-function renderAIExplanation(data) {
-  const box = document.getElementById('aiBox');
-  if (data.ai_explanation) {
-    document.getElementById('aiText').textContent = data.ai_explanation;
-    box.style.display = 'block';
-  } else {
-    box.style.display = 'none';
+// ─── ML Summary Panel ─────────────────────────────
+function renderMLSummary(data) {
+  let mlBox = document.getElementById('mlSummaryBox');
+  if (!mlBox) {
+    mlBox = document.createElement('div');
+    mlBox.id = 'mlSummaryBox';
+    mlBox.className = 'ml-summary-box';
+    const banner = document.getElementById('riskBanner');
+    if (banner && banner.parentNode) {
+      banner.parentNode.insertBefore(mlBox, banner.nextSibling);
+    }
   }
+
+  const ml = data.ml_result;
+  if (!ml || !ml.ml_used) {
+    mlBox.style.display = 'none';
+    return;
+  }
+
+  const confidence  = Math.round((ml.confidence || 0) * 100);
+  const scoreColor  = ['var(--green)', 'var(--orange)', 'var(--red)', '#8b0000'];
+  const score       = ml.overall_score ?? 0;
+
+  mlBox.style.display = 'block';
+  mlBox.innerHTML = `
+    <div class="ml-summary-header">
+      <span class="ml-icon">🤖</span>
+      <span class="ml-title">ML Risk Analysis</span>
+      <span class="ml-conf-badge" style="color:${scoreColor[score]}">
+        ${ml.overall_risk} · ${confidence}% confidence
+      </span>
+    </div>
+    <div class="ml-score-bar-wrap">
+      <div class="ml-score-bar">
+        <div class="ml-score-fill" style="width:${(score / 3) * 100}%; background:${scoreColor[score]}"></div>
+      </div>
+      <span class="ml-score-labels">
+        <span>Low</span><span>Moderate</span><span>High</span><span>Critical</span>
+      </span>
+    </div>
+  `;
 }
 
+// ─── AI Explanation ───────────────────────────────
+// Displays the explanation as-is from the backend (which now generates
+// risk-accurate text). No client-side override needed.
+function renderAIExplanation(data) {
+  const box         = document.getElementById('aiBox');
+  const explanation = data.ai_explanation || data.explanation;
+
+  if (!explanation) {
+    box.style.display = 'none';
+    return;
+  }
+
+  document.getElementById('aiText').textContent = explanation;
+  box.style.display = 'block';
+}
+
+// ─── Interaction Cards ────────────────────────────
+// severity from backend is now correctly mapped:
+//   ML "High"/"Critical" → "dangerous"
+//   ML "Moderate"        → "moderate"
+//   ML "Low"             → "safe"
 function renderInteractionCards(data) {
   const list = document.getElementById('interactionsList');
 
@@ -500,22 +623,103 @@ function renderInteractionCards(data) {
     return;
   }
 
-  list.innerHTML = data.interactions.map((item, i) => `
-    <div class="interaction-card ${item.severity}" style="animation-delay:${i * 0.07}s">
-      <div class="card-header">
-        <span class="drug-pair">
-          ${item.drug1}<span class="plus"> + </span>${item.drug2}
-        </span>
-        <span class="severity-pill ${item.severity}">${item.severity}</span>
+  // Build ML pair lookup for mini badge
+  const mlPairMap = {};
+  (data.ml_result?.pairs || []).forEach(p => {
+    const key = [p.drug1, p.drug2].sort().join('|');
+    mlPairMap[key] = p;
+  });
+
+  list.innerHTML = data.interactions.map((item, i) => {
+    const key    = [item.drug1, item.drug2].sort().join('|');
+    const mlPair = mlPairMap[key];
+    const mlTag  = mlPair
+      ? `<span class="ml-pair-mini-badge" title="ML scored this pair">
+           🤖 ML: ${mlPair.risk_label} (${Math.round(mlPair.confidence * 100)}%)
+         </span>`
+      : '';
+
+    return `
+      <div class="interaction-card ${item.severity}" style="animation-delay:${i * 0.07}s">
+        <div class="card-header">
+          <span class="drug-pair">
+            ${item.drug1}<span class="plus"> + </span>${item.drug2}
+          </span>
+          <span class="severity-pill ${item.severity}">${item.severity}</span>
+          ${mlTag}
+        </div>
+        ${item.dosage_warning ? `<p class="card-dosage-warn">⚠ ${item.dosage_warning}</p>` : ''}
+        <p class="card-effect">${item.effect}</p>
+        <p class="card-recommendation">${item.recommendation}</p>
       </div>
-      ${item.dosage_warning ? `<p class="card-dosage-warn">⚠ ${item.dosage_warning}</p>` : ''}
-      <p class="card-effect">${item.effect}</p>
-      <p class="card-recommendation">${item.recommendation}</p>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
+// ─── ML Per-Pair Breakdown ────────────────────────
+// Shows ONLY the single winning risk label + confidence bar (not all 4 probabilities)
+function renderMLPairBreakdown(data) {
+  let mlSection = document.getElementById('mlPairSection');
+  if (!mlSection) {
+    mlSection = document.createElement('div');
+    mlSection.id = 'mlPairSection';
+    mlSection.className = 'ml-pair-section';
+    const interactionsList = document.getElementById('interactionsList');
+    if (interactionsList && interactionsList.parentNode) {
+      interactionsList.parentNode.insertBefore(mlSection, interactionsList.nextSibling);
+    }
+  }
+
+  const pairs = data.ml_result?.pairs;
+  if (!pairs || pairs.length === 0) {
+    mlSection.style.display = 'none';
+    return;
+  }
+
+  const riskColor = {
+    Low:      'var(--green)',
+    Moderate: 'var(--orange)',
+    High:     'var(--red)',
+    Critical: '#8b0000'
+  };
+
+  mlSection.style.display = 'block';
+  mlSection.innerHTML = `
+    <h3 class="ml-section-title">🤖 ML Pair-Level Analysis</h3>
+    <div class="ml-pair-grid">
+      ${pairs.map(p => {
+        const color       = riskColor[p.risk_label] || 'var(--text-muted)';
+        const conf        = Math.round(p.confidence * 100);
+        // ── Single winner bar only ──
+        const winnerBar   = `
+          <div class="ml-prob-row">
+            <span class="ml-prob-label">${p.risk_label}</span>
+            <div class="ml-prob-bar-wrap">
+              <div class="ml-prob-bar" style="width:${conf}%; background:${color}"></div>
+            </div>
+            <span class="ml-prob-val">${conf}%</span>
+          </div>`;
+
+        return `
+          <div class="ml-pair-card">
+            <div class="ml-pair-card-header">
+              <span class="ml-pair-names">${p.drug1} <span class="plus">+</span> ${p.drug2}</span>
+              <span class="ml-pair-risk-badge" style="color:${color}">${p.risk_label}</span>
+            </div>
+            <div class="ml-pair-meta">
+              Dosage: <strong>${p.qty1}mg + ${p.qty2}mg</strong>
+              &nbsp;·&nbsp; Confidence: <strong>${conf}%</strong>
+            </div>
+            <div class="ml-prob-breakdown">${winnerBar}</div>
+          </div>`;
+      }).join('')}
+    </div>
+  `;
+}
+
+// ─── Stats Bar ────────────────────────────────────
 function renderStats(data) {
+  // Count by mapped severity (dangerous/moderate/safe) from interactions[]
   const dangerous = (data.interactions || []).filter(i => i.severity === 'dangerous').length;
   const moderate  = (data.interactions || []).filter(i => i.severity === 'moderate').length;
   const safe      = (data.interactions || []).filter(i => i.severity === 'safe').length;
@@ -534,13 +738,19 @@ function renderStats(data) {
       </span>
     </div>` : '';
 
+  const mlStatHtml = data.ml_result?.ml_used ? `
+    <div class="stat-item">
+      <span class="stat-value" style="color:var(--accent)">${Math.round((data.ml_result.confidence || 0) * 100)}%</span>
+      <span class="stat-label">ML Conf.</span>
+    </div>` : '';
+
   document.getElementById('statsBar').innerHTML = `
     <div class="stat-item">
       <span class="stat-value">${window.medicines.length}</span>
       <span class="stat-label">Medicines</span>
     </div>
     <div class="stat-item">
-      <span class="stat-value">${data.total_pairs_checked || 0}</span>
+      <span class="stat-value">${data.total_pairs_checked || data.ml_result?.pairs?.length || 0}</span>
       <span class="stat-label">Pairs</span>
     </div>
     <div class="stat-item">
@@ -555,6 +765,7 @@ function renderStats(data) {
       <span class="stat-value" style="color:var(--green)">${safe}</span>
       <span class="stat-label">Safe</span>
     </div>
+    ${mlStatHtml}
     ${metaHtml}
   `;
 }
@@ -566,7 +777,9 @@ function saveToHistory(data) {
     let history   = JSON.parse(localStorage.getItem('pharmaHistory') || '[]');
     history.unshift({
       medicines:  (data.medicines_checked || window.medicines.map(m => m.name)),
-      risk:       data.overall_risk,
+      risk:       data.ml_result?.overall_risk || data.overall_risk,
+      mlUsed:     data.ml_result?.ml_used || false,
+      confidence: data.ml_result?.confidence || null,
       gender:     profile.gender,
       conditions: profile.conditions,
       time:       new Date().toLocaleString()
@@ -599,13 +812,21 @@ function renderHistory() {
         h.gender     ? h.gender : '',
         h.conditions?.length ? h.conditions.join(', ') : ''
       ].filter(Boolean).join(' · ');
+
+      const confTag = h.mlUsed && h.confidence
+        ? `<span class="history-conf">🤖 ${Math.round(h.confidence * 100)}%</span>`
+        : '';
+
       return `
         <div class="history-item">
           <div>
             <span class="history-meds">${(h.medicines || []).join(', ')}</span>
             ${meta ? `<span class="history-meta">${meta}</span>` : ''}
           </div>
-          <span class="history-risk ${h.risk}">${h.risk}</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            ${confTag}
+            <span class="history-risk ${(h.risk || '').toLowerCase()}">${h.risk}</span>
+          </div>
         </div>
       `;
     }).join('');
@@ -619,12 +840,15 @@ function shareWhatsApp() {
   if (!lastResult) return;
   const profile = getPatientProfile();
   const meds    = window.medicines.map(m => m.dosage ? `${m.name} (${m.dosage}mg)` : m.name).join(', ');
-  const risk    = lastResult.overall_risk.toUpperCase();
-  const explain = lastResult.ai_explanation || '';
+  const risk    = (lastResult.ml_result?.overall_risk || lastResult.overall_risk || 'Unknown').toUpperCase();
+  const conf    = lastResult.ml_result?.confidence
+    ? ` (ML ${Math.round(lastResult.ml_result.confidence * 100)}% confidence)`
+    : '';
+  const explain = lastResult.ai_explanation || lastResult.explanation || '';
 
   const patientLine = [
-    profile.age    ? `Age: ${profile.age}`                             : '',
-    profile.gender ? `Gender: ${profile.gender}`                       : '',
+    profile.age        ? `Age: ${profile.age}`                              : '',
+    profile.gender     ? `Gender: ${profile.gender}`                        : '',
     profile.conditions.length ? `Conditions: ${profile.conditions.join(', ')}` : ''
   ].filter(Boolean).join(' | ');
 
@@ -632,7 +856,7 @@ function shareWhatsApp() {
     '🛡️ *PharmaShield AI Result*', '',
     `Medicines: ${meds}`,
     patientLine || '',
-    `Risk Level: ${risk}`, '',
+    `Risk Level: ${risk}${conf}`, '',
     explain, '',
     '_Checked via PharmaShield AI — for educational purposes only._'
   ].filter(l => l !== null).join('\n');
@@ -663,6 +887,11 @@ function resetApp() {
   lastResult = null;
   document.getElementById('medicineInput').focus();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const mlBox     = document.getElementById('mlSummaryBox');
+  const mlSection = document.getElementById('mlPairSection');
+  if (mlBox)     mlBox.style.display     = 'none';
+  if (mlSection) mlSection.style.display = 'none';
 }
 
 function shakeInput() {
