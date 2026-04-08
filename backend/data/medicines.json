@@ -1,0 +1,351 @@
+{
+  "interactions": [
+    {
+      "drug1": "warfarin",
+      "drug2": "aspirin",
+      "severity": "dangerous",
+      "effect": "Increased bleeding risk. Both drugs thin blood — combining them can cause internal bleeding or hemorrhage.",
+      "recommendation": "Avoid combination. Consult cardiologist immediately."
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "ibuprofen",
+      "severity": "dangerous",
+      "effect": "Ibuprofen increases warfarin levels in blood, causing excessive anticoagulation and severe bleeding risk.",
+      "recommendation": "Use paracetamol instead of ibuprofen. Inform your doctor."
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "naproxen",
+      "severity": "dangerous",
+      "effect": "Naproxen increases warfarin effect and damages stomach lining, combining to create serious bleeding risk.",
+      "recommendation": "Avoid. Use paracetamol for pain. Monitor INR closely."
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "alcohol",
+      "severity": "dangerous",
+      "effect": "Risk of lactic acidosis — a life-threatening condition where lactic acid builds up in the body.",
+      "recommendation": "Avoid alcohol completely while on metformin."
+    },
+    {
+      "drug1": "ssri",
+      "drug2": "tramadol",
+      "severity": "dangerous",
+      "effect": "Risk of serotonin syndrome — symptoms include high fever, rapid heart rate, muscle twitching, and seizures.",
+      "recommendation": "Do not combine. Seek immediate medical attention if taken together."
+    },
+    {
+      "drug1": "fluoxetine",
+      "drug2": "tramadol",
+      "severity": "dangerous",
+      "effect": "High risk of serotonin syndrome — life-threatening condition with agitation, high fever, and muscle rigidity.",
+      "recommendation": "Avoid combination. Discuss alternative pain management with your doctor."
+    },
+    {
+      "drug1": "sertraline",
+      "drug2": "tramadol",
+      "severity": "dangerous",
+      "effect": "Serotonin syndrome risk — dangerous accumulation of serotonin causing potentially fatal symptoms.",
+      "recommendation": "Never combine. Talk to your doctor about safer pain relief alternatives."
+    },
+    {
+      "drug1": "lisinopril",
+      "drug2": "potassium",
+      "severity": "dangerous",
+      "effect": "ACE inhibitors like lisinopril raise potassium levels. Extra potassium can cause fatal heart rhythm problems.",
+      "recommendation": "Avoid potassium supplements unless prescribed. Regular blood tests needed."
+    },
+    {
+      "drug1": "simvastatin",
+      "drug2": "clarithromycin",
+      "severity": "dangerous",
+      "effect": "Clarithromycin blocks breakdown of simvastatin, causing toxic levels that damage muscle tissue (rhabdomyolysis).",
+      "recommendation": "Stop simvastatin during antibiotic course. Inform prescribing doctor."
+    },
+    {
+      "drug1": "maoi",
+      "drug2": "pseudoephedrine",
+      "severity": "dangerous",
+      "effect": "Severe hypertensive crisis — blood pressure can spike dangerously high, risking stroke.",
+      "recommendation": "Never combine. MAOIs interact with many medications. Always consult a doctor."
+    },
+    {
+      "drug1": "digoxin",
+      "drug2": "amiodarone",
+      "severity": "dangerous",
+      "effect": "Amiodarone significantly raises digoxin levels, increasing toxicity risk causing nausea, vision changes, and dangerous arrhythmias.",
+      "recommendation": "Reduce digoxin dose by 50% if amiodarone is started. Requires monitoring."
+    },
+    {
+      "drug1": "methotrexate",
+      "drug2": "ibuprofen",
+      "severity": "dangerous",
+      "effect": "NSAIDs reduce kidney clearance of methotrexate, causing toxic accumulation that can damage bone marrow and liver.",
+      "recommendation": "Avoid NSAIDs with methotrexate. Use paracetamol only. Requires medical supervision."
+    },
+    {
+      "drug1": "methotrexate",
+      "drug2": "aspirin",
+      "severity": "dangerous",
+      "effect": "Aspirin reduces kidney clearance of methotrexate causing dangerous toxicity buildup.",
+      "recommendation": "Never combine without specialist supervision. Use paracetamol for pain."
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "fluconazole",
+      "severity": "dangerous",
+      "effect": "Fluconazole inhibits warfarin metabolism causing dangerous blood thinning and hemorrhage risk.",
+      "recommendation": "Avoid if possible. If necessary, reduce warfarin dose and monitor INR daily."
+    },
+    {
+      "drug1": "clopidogrel",
+      "drug2": "aspirin",
+      "severity": "dangerous",
+      "effect": "Double antiplatelet therapy significantly increases bleeding risk including potentially fatal internal bleeding.",
+      "recommendation": "Only use together if explicitly prescribed by cardiologist for heart attack prevention."
+    },
+    {
+      "drug1": "lithium",
+      "drug2": "ibuprofen",
+      "severity": "dangerous",
+      "effect": "NSAIDs raise lithium blood levels to toxic range causing tremors, confusion, and kidney damage.",
+      "recommendation": "Avoid NSAIDs completely with lithium. Use paracetamol only."
+    },
+    {
+      "drug1": "lithium",
+      "drug2": "naproxen",
+      "severity": "dangerous",
+      "effect": "Naproxen raises lithium to toxic levels causing serious neurological and kidney damage.",
+      "recommendation": "Never combine. Consult psychiatrist immediately if pain relief needed."
+    },
+    {
+      "drug1": "sildenafil",
+      "drug2": "nitrates",
+      "severity": "dangerous",
+      "effect": "Both drugs lower blood pressure. Combined effect can cause fatal hypotension and cardiovascular collapse.",
+      "recommendation": "Absolutely never combine. This is a life-threatening interaction."
+    },
+    {
+      "drug1": "aspirin",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "Both are NSAIDs — together they increase stomach ulcer risk and may reduce aspirin's heart-protective effect.",
+      "recommendation": "Avoid routine combination. If needed, take aspirin 30 mins before ibuprofen."
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "NSAIDs can reduce kidney function, which affects metformin clearance and increases risk of lactic acidosis.",
+      "recommendation": "Use paracetamol as a safer alternative for pain relief."
+    },
+    {
+      "drug1": "ciprofloxacin",
+      "drug2": "antacid",
+      "severity": "moderate",
+      "effect": "Antacids containing magnesium or aluminium bind ciprofloxacin in the gut and reduce its absorption by up to 90%.",
+      "recommendation": "Take ciprofloxacin 2 hours before or 6 hours after antacid."
+    },
+    {
+      "drug1": "levothyroxine",
+      "drug2": "calcium",
+      "severity": "moderate",
+      "effect": "Calcium reduces absorption of levothyroxine, leading to under-treatment of hypothyroidism.",
+      "recommendation": "Take levothyroxine on empty stomach. Wait at least 4 hours before calcium."
+    },
+    {
+      "drug1": "atorvastatin",
+      "drug2": "grapefruit",
+      "severity": "moderate",
+      "effect": "Grapefruit blocks the enzyme that breaks down atorvastatin, raising its blood levels and muscle damage risk.",
+      "recommendation": "Avoid grapefruit juice while on statins."
+    },
+    {
+      "drug1": "sertraline",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "SSRIs combined with NSAIDs increase risk of gastrointestinal bleeding by 3 to 15 times.",
+      "recommendation": "Use paracetamol instead. If NSAID needed, add a stomach-protecting medication."
+    },
+    {
+      "drug1": "amlodipine",
+      "drug2": "simvastatin",
+      "severity": "moderate",
+      "effect": "Amlodipine raises simvastatin blood levels, increasing muscle pain and damage risk.",
+      "recommendation": "Limit simvastatin to 20mg/day if taken with amlodipine."
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "paracetamol",
+      "severity": "moderate",
+      "effect": "High doses of paracetamol can enhance warfarin's blood-thinning effect, increasing bleeding risk.",
+      "recommendation": "Safe at low doses (max 2g/day). Avoid prolonged high-dose use. Monitor INR."
+    },
+    {
+      "drug1": "clopidogrel",
+      "drug2": "omeprazole",
+      "severity": "moderate",
+      "effect": "Omeprazole reduces clopidogrel's antiplatelet effect by blocking its activation, potentially reducing heart protection.",
+      "recommendation": "Use pantoprazole as a safer alternative stomach protectant."
+    },
+    {
+      "drug1": "fluoxetine",
+      "drug2": "ibuprofen",
+      "severity": "moderate",
+      "effect": "SSRIs and NSAIDs together significantly increase gastrointestinal bleeding risk.",
+      "recommendation": "Use paracetamol for pain relief instead."
+    },
+    {
+      "drug1": "amoxicillin",
+      "drug2": "warfarin",
+      "severity": "moderate",
+      "effect": "Amoxicillin can disrupt gut bacteria that produce vitamin K, enhancing warfarin's anticoagulant effect.",
+      "recommendation": "Monitor INR more frequently during antibiotic course."
+    },
+    {
+      "drug1": "ciprofloxacin",
+      "drug2": "warfarin",
+      "severity": "moderate",
+      "effect": "Ciprofloxacin inhibits warfarin metabolism, increasing bleeding risk.",
+      "recommendation": "Monitor INR closely during and after antibiotic treatment."
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "contrast dye",
+      "severity": "moderate",
+      "effect": "Contrast dye used in CT scans can impair kidney function, causing metformin accumulation and lactic acidosis risk.",
+      "recommendation": "Stop metformin 48 hours before contrast procedures. Resume only after kidney function confirmed normal."
+    },
+    {
+      "drug1": "atenolol",
+      "drug2": "verapamil",
+      "severity": "moderate",
+      "effect": "Both drugs slow heart rate. Combined effect can cause dangerously slow heartbeat or heart block.",
+      "recommendation": "Use only under close cardiologist supervision with heart rate monitoring."
+    },
+    {
+      "drug1": "paracetamol",
+      "drug2": "ibuprofen",
+      "severity": "safe",
+      "effect": "These two drugs work differently and are often prescribed together for better pain relief.",
+      "recommendation": "Safe to combine. Follow standard dosing guidelines for each."
+    },
+    {
+      "drug1": "amoxicillin",
+      "drug2": "paracetamol",
+      "severity": "safe",
+      "effect": "No known harmful interaction. Paracetamol can help manage fever during antibiotic course.",
+      "recommendation": "Safe combination. Stay hydrated and complete the full antibiotic course."
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "lisinopril",
+      "severity": "safe",
+      "effect": "Commonly prescribed together for diabetic patients with hypertension. No harmful interaction.",
+      "recommendation": "Safe combination. Monitor blood pressure and blood sugar regularly."
+    },
+    {
+      "drug1": "atorvastatin",
+      "drug2": "aspirin",
+      "severity": "safe",
+      "effect": "Commonly co-prescribed for cardiovascular protection. No significant interaction.",
+      "recommendation": "Safe combination. Standard therapy for heart disease prevention."
+    },
+    {
+      "drug1": "omeprazole",
+      "drug2": "amoxicillin",
+      "severity": "safe",
+      "effect": "Often used together in H. pylori treatment. No harmful interaction.",
+      "recommendation": "Safe. Complete the full prescribed course."
+    },
+    {
+      "drug1": "cetirizine",
+      "drug2": "paracetamol",
+      "severity": "safe",
+      "effect": "No known interaction. Both are widely used over-the-counter medications.",
+      "recommendation": "Safe combination. Follow package dosing instructions."
+    },
+    {
+      "drug1": "amlodipine",
+      "drug2": "lisinopril",
+      "severity": "safe",
+      "effect": "Commonly combined for blood pressure control. Complementary mechanisms with no harmful interaction.",
+      "recommendation": "Safe and effective combination for hypertension management."
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "atorvastatin",
+      "severity": "safe",
+      "effect": "No known harmful interaction. Commonly prescribed together in diabetic patients with high cholesterol.",
+      "recommendation": "Safe combination. Continue as prescribed."
+    },
+    {
+      "drug1": "omeprazole",
+      "drug2": "paracetamol",
+      "severity": "safe",
+      "effect": "No harmful interaction. Omeprazole may actually help protect stomach when taking paracetamol regularly.",
+      "recommendation": "Safe combination."
+    },
+    {
+      "drug1": "cetirizine",
+      "drug2": "amoxicillin",
+      "severity": "safe",
+      "effect": "No known interaction between antihistamines and this antibiotic.",
+      "recommendation": "Safe to take together."
+    },
+    {
+      "drug1": "levothyroxine",
+      "drug2": "atorvastatin",
+      "severity": "safe",
+      "effect": "No clinically significant interaction. Both are commonly prescribed long-term medications.",
+      "recommendation": "Safe combination. Take levothyroxine on empty stomach as usual."
+    }
+  ],
+  "medicines_list": [
+    "warfarin", "aspirin", "ibuprofen", "paracetamol", "metformin",
+    "lisinopril", "atorvastatin", "simvastatin", "amoxicillin", "ciprofloxacin",
+    "omeprazole", "sertraline", "fluoxetine", "tramadol", "digoxin",
+    "amiodarone", "amlodipine", "levothyroxine", "cetirizine", "clarithromycin",
+    "clopidogrel", "methotrexate", "ssri", "maoi", "pseudoephedrine",
+    "potassium", "calcium", "antacid", "grapefruit", "alcohol",
+    "naproxen", "fluconazole", "lithium", "sildenafil", "nitrates",
+    "verapamil", "atenolol", "pantoprazole", "contrast dye", "codeine"
+  ],
+  "side_effects": {
+    "warfarin":       ["easy bruising", "bleeding gums", "blood in urine", "prolonged bleeding from cuts"],
+    "aspirin":        ["stomach irritation", "nausea", "heartburn", "increased bleeding time"],
+    "ibuprofen":      ["stomach upset", "nausea", "headache", "dizziness", "increased blood pressure"],
+    "paracetamol":    ["nausea at high doses", "liver damage if overdosed", "generally well tolerated"],
+    "metformin":      ["nausea", "diarrhea", "stomach pain", "loss of appetite", "metallic taste"],
+    "lisinopril":     ["dry cough", "dizziness", "headache", "low blood pressure", "high potassium"],
+    "atorvastatin":   ["muscle pain", "nausea", "diarrhea", "joint pain", "insomnia"],
+    "simvastatin":    ["muscle aches", "headache", "nausea", "constipation", "memory problems"],
+    "amoxicillin":    ["diarrhea", "rash", "nausea", "vomiting", "allergic reaction"],
+    "ciprofloxacin":  ["nausea", "diarrhea", "headache", "dizziness", "sensitivity to sunlight"],
+    "omeprazole":     ["headache", "nausea", "diarrhea", "stomach pain", "low magnesium with long use"],
+    "sertraline":     ["nausea", "insomnia", "dizziness", "dry mouth", "sweating", "sexual dysfunction"],
+    "fluoxetine":     ["nausea", "headache", "insomnia", "anxiety", "dry mouth", "sexual dysfunction"],
+    "tramadol":       ["nausea", "dizziness", "constipation", "headache", "drowsiness", "risk of dependence"],
+    "digoxin":        ["nausea", "vomiting", "visual disturbances", "irregular heartbeat", "fatigue"],
+    "amlodipine":     ["ankle swelling", "flushing", "headache", "dizziness", "fatigue"],
+    "levothyroxine":  ["palpitations", "tremors", "insomnia", "weight loss", "sweating if overdosed"],
+    "cetirizine":     ["drowsiness", "dry mouth", "headache", "fatigue"],
+    "clopidogrel":    ["bleeding", "bruising", "stomach upset", "rash"],
+    "methotrexate":   ["nausea", "mouth sores", "fatigue", "hair loss", "liver damage with long use"],
+    "lithium":        ["tremor", "thirst", "frequent urination", "weight gain", "memory problems"],
+    "fluconazole":    ["nausea", "headache", "stomach pain", "rash", "liver enzyme changes"]
+  },
+  "alternatives": {
+    "ibuprofen":       ["paracetamol", "naproxen", "diclofenac"],
+    "aspirin":         ["clopidogrel", "ticagrelor"],
+    "tramadol":        ["codeine", "paracetamol", "naproxen"],
+    "simvastatin":     ["rosuvastatin", "pravastatin"],
+    "omeprazole":      ["pantoprazole", "lansoprazole", "ranitidine"],
+    "clarithromycin":  ["azithromycin", "doxycycline"],
+    "fluconazole":     ["clotrimazole", "nystatin"],
+    "naproxen":        ["paracetamol", "diclofenac"],
+    "ciprofloxacin":   ["amoxicillin", "doxycycline", "azithromycin"],
+    "verapamil":       ["amlodipine", "diltiazem"]
+  }
+}

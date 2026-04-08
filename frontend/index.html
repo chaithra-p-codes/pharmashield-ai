@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PharmaShield AI — Drug Interaction Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <div class="app-wrapper">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">⬡</span>
+        <div class="logo-text">
+          <span class="logo-main">PharmaShield</span>
+          <span class="logo-sub">AI</span>
+        </div>
+      </div>
+      <p class="tagline">Real-time drug interaction detection & risk analysis</p>
+    </header>
+
+    <!-- Main Card -->
+    <main class="main-card">
+
+      <!-- Patient Profile -->
+      <section class="patient-section">
+        <h2 class="section-title">Patient Profile <span class="optional-tag">optional</span></h2>
+        <div class="patient-grid">
+          <div class="field-group">
+            <label class="field-label">Age</label>
+            <input type="number" id="patientAge" class="field-input" placeholder="e.g. 65" min="1" max="120"/>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Weight (kg)</label>
+            <input type="number" id="patientWeight" class="field-input" placeholder="e.g. 70" min="1" max="300"/>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Condition</label>
+            <select id="patientCondition" class="field-input">
+              <option value="None">None</option>
+              <option>Diabetes</option>
+              <option>Hypertension</option>
+              <option>Heart Disease</option>
+              <option>Kidney Disease</option>
+              <option>Liver Disease</option>
+              <option>Asthma</option>
+              <option>Thyroid Disorder</option>
+              <option>Pregnancy</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Medicine Input -->
+      <section class="input-section">
+        <h2 class="section-title">Enter Medicines</h2>
+        <p class="section-desc">Type a medicine name and press <kbd>Enter</kbd> or <kbd>,</kbd> to add</p>
+
+        <div class="tag-input-wrapper" id="tagWrapper">
+          <div class="tags-container" id="tagsContainer"></div>
+          <input
+            type="text"
+            id="medicineInput"
+            class="tag-input"
+            placeholder="e.g. warfarin, aspirin..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
+
+        <!-- Quick add chips -->
+        <div class="quick-add">
+          <span class="quick-label">Quick add:</span>
+          <button class="chip" onclick="addMedicine('warfarin')">warfarin</button>
+          <button class="chip" onclick="addMedicine('aspirin')">aspirin</button>
+          <button class="chip" onclick="addMedicine('ibuprofen')">ibuprofen</button>
+          <button class="chip" onclick="addMedicine('metformin')">metformin</button>
+          <button class="chip" onclick="addMedicine('paracetamol')">paracetamol</button>
+        </div>
+
+        <button class="check-btn" id="checkBtn" onclick="checkInteractions()">
+          <span class="btn-icon">⬡</span>
+          Analyze Interactions
+        </button>
+      </section>
+
+      <!-- Loading -->
+      <div class="loading-state" id="loadingState" style="display:none">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Analyzing drug interactions...</p>
+      </div>
+
+      <!-- Results -->
+      <section class="results-section" id="resultsSection" style="display:none">
+
+        <div class="risk-banner" id="riskBanner">
+          <div class="risk-icon" id="riskIcon"></div>
+          <div class="risk-info">
+            <span class="risk-label" id="riskLabel"></span>
+            <span class="risk-detail" id="riskDetail"></span>
+          </div>
+          <div class="risk-badge" id="riskBadge"></div>
+        </div>
+
+        <div class="ai-box" id="aiBox" style="display:none">
+          <div class="ai-header">
+            <span class="ai-dot"></span>
+            <span class="ai-title">AI Safety Summary</span>
+          </div>
+          <p class="ai-text" id="aiText"></p>
+        </div>
+
+        <div class="interactions-list" id="interactionsList"></div>
+
+        <div class="stats-bar" id="statsBar"></div>
+
+        <!-- Action Buttons -->
+        <div class="action-row">
+          <button class="action-btn whatsapp-btn" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
+          <button class="action-btn history-btn" onclick="toggleHistory()">🕓 View History</button>
+        </div>
+
+        <div class="history-panel" id="historyPanel" style="display:none">
+          <h3 class="history-title">Recent Checks</h3>
+          <div id="historyList"></div>
+        </div>
+
+        <button class="reset-btn" onclick="resetApp()">← Check Another Combination</button>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>⚠️ For educational purposes only. Always consult a licensed healthcare provider.</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
