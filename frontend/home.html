@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaShield AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<!-- NAVBAR -->
+<nav style="display:flex; justify-content:space-between; align-items:center; padding:20px 40px;">
+  <div class="logo">
+    <span class="logo-icon">⬡</span>
+    <div class="logo-text">
+      <span class="logo-main">PharmaShield</span>
+      <span class="logo-sub">AI</span>
+    </div>
+  </div>
+
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <span id="themeIcon">☀</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section style="text-align:center; padding:80px 20px 40px; max-width:900px; margin:auto;">
+
+  <h1 style="font-size:3rem; font-weight:800; line-height:1.2;">
+    Safer Medicines.<br>
+    <span style="color:var(--teal);">Powered by AI.</span>
+  </h1>
+
+  <p style="margin-top:20px; color:var(--text-dim); font-size:1rem;">
+    Detect dangerous drug interactions instantly using intelligent analysis.
+  </p>
+
+  <button onclick="goToApp()" 
+    style="
+      margin-top:30px;
+      padding:16px 30px;
+      font-size:1rem;
+      border-radius:12px;
+      border:1px solid var(--border-hover);
+      background:var(--teal-dim);
+      color:var(--teal);
+      font-weight:700;
+      cursor:pointer;
+      transition:0.3s;
+    "
+    onmouseover="this.style.boxShadow='0 0 20px var(--teal-dim)'"
+    onmouseout="this.style.boxShadow='none'"
+  >
+    Start Analysis →
+  </button>
+
+</section>
+
+<!-- FEATURES GRID -->
+<section style="padding:60px 20px; max-width:1000px; margin:auto;">
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;">
+
+    <div style="padding:20px; border:1px solid var(--border); border-radius:16px; background:var(--surface);">
+      <h3 style="color:var(--teal); margin-bottom:10px;">⚡ Instant Detection</h3>
+      <p style="color:var(--text-dim); font-size:0.9rem;">
+        Get immediate insights into harmful drug combinations.
+      </p>
+    </div>
+
+    <div style="padding:20px; border:1px solid var(--border); border-radius:16px; background:var(--surface);">
+      <h3 style="color:var(--teal); margin-bottom:10px;">🧠 AI Insights</h3>
+      <p style="color:var(--text-dim); font-size:0.9rem;">
+        Understand risks with clear AI-generated explanations.
+      </p>
+    </div>
+
+    <div style="padding:20px; border:1px solid var(--border); border-radius:16px; background:var(--surface);">
+      <h3 style="color:var(--teal); margin-bottom:10px;">👤 Personalized</h3>
+      <p style="color:var(--text-dim); font-size:0.9rem;">
+        Tailored analysis based on patient conditions and profile.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CTA SECTION -->
+<section style="text-align:center; padding:60px 20px;">
+
+  <h2 style="font-size:1.6rem;">Start using PharmaShield AI today</h2>
+
+  <button onclick="goToApp()" 
+    style="
+      margin-top:20px;
+      padding:14px 25px;
+      border-radius:10px;
+      border:none;
+      background:var(--teal);
+      color:black;
+      font-weight:700;
+      cursor:pointer;
+    "
+  >
+    Go to App
+  </button>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>⚠️ For educational purposes only. Always consult a licensed healthcare provider.</p>
+</footer>
+
+<script>
+function goToApp(){
+  window.location.href = "index.html";
+}
+
+function toggleTheme(){
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeIcon').textContent = isDark ? '☽' : '☀';
+}
+</script>
+
+</body>
+</html>
