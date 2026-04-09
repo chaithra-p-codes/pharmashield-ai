@@ -24,22 +24,43 @@ PharmaShield AI detects harmful drug interactions in real time. Enter any combin
 
 ```
 pharmashield-ai/
-├── backend/                  ← Run everything from here
-│   ├── app.py                ← Flask server (main entry point)
-│   ├── interactions.json     ← 82 drug interaction pairs (training data)
-│   ├── .env                  ← Your Groq API key goes here
-│   ├── requirements.txt
-│   └── ml/
-│       ├── train_model.py    ← Run once to train the model
-│       ├── predict.py        ← Called by app.py for scoring
-│       ├── model.pkl         ← Generated after training
-│       └── meta.json         ← Feature metadata (generated after training)
+├── backend/
+│   ├── data/
+│   │   └── medicines.json          ← Drug name list for autocomplete
+│   ├── database/
+│   │   ├── __init__.py
+│   │   ├── db.py                   ← Database connection setup
+│   │   ├── models.py               ← ORM models
+│   │   └── pharmashield.db         ← SQLite database (generated)
+│   ├── ml/
+│   │   ├── predict.py              ← Called by app.py for ML scoring
+│   │   ├── train_model.py          ← Run once to train the model
+│   │   ├── model.pkl               ← Generated after training
+│   │   └── meta.json               ← Feature metadata (generated after training)
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   └── check_interactions.py   ← Route handlers for /api/check
+│   ├── services/
+│   │   ├── __init__.py
+│   │   └── ai_service.py           ← Groq AI integration
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   └── helper.py               ← Shared utility functions
+│   ├── app.py                      ← Flask server (main entry point)
+│   ├── interactions.json           ← 82 drug interaction pairs (training data)
+│   ├── seed.py                     ← Database seeding script
+│   └── .env                        ← Your Groq API key goes here
 │
-└── frontend/                 ← Open with Live Server
-    ├── index.html
-    ├── style.css
-    ├── ml_styles.css
-    └── script.js
+├── frontend/
+│   ├── home.html                   ← Landing / home page
+│   ├── index.html                  ← Main app UI
+│   ├── ml_style.css                ← ML result panel styles
+│   ├── script.js                   ← Frontend logic & API calls
+│   └── style.css                   ← Global styles, themes
+│
+├── requirements.txt
+├── .env.example
+└── .gitignore
 ```
 
 ---
@@ -73,7 +94,13 @@ cd backend
 pip install -r requirements.txt
 ```
 
-### 4. Train the ML model *(run once)*
+### 4. Seed the database *(run once)*
+
+```bash
+python seed.py
+```
+
+### 5. Train the ML model *(run once)*
 
 ```bash
 python ml/train_model.py
@@ -86,7 +113,7 @@ Expected output:
 ✅ Metadata saved → ml/meta.json
 ```
 
-### 5. Start the Flask backend
+### 6. Start the Flask backend
 
 ```bash
 python app.py
@@ -102,7 +129,7 @@ Expected output:
 
 > ✅ All three lines must appear before opening the frontend.
 
-### 6. Open the frontend
+### 7. Open the frontend
 In VS Code, right-click `frontend/index.html` → **Open with Live Server**.  
 Browser opens at `http://127.0.0.1:5500`.
 
@@ -219,6 +246,7 @@ The model outputs a risk class (0=Low, 1=Moderate, 2=High, 3=Critical) with conf
 .env
 ml/model.pkl
 ml/meta.json
+database/pharmashield.db
 __pycache__/
 *.pyc
 ```
@@ -231,6 +259,7 @@ __pycache__/
 |-------|-----------|---------|
 | Frontend | HTML + CSS + JavaScript | UI, theme, autocomplete |
 | Backend | Python 3.11 + Flask | REST API, routing |
+| Database | SQLite + SQLAlchemy | Drug data persistence |
 | ML Model | scikit-learn GradientBoosting | Risk scoring |
 | AI Explain | Groq API — Llama 3.3 70B | Clinical explanations |
 | Data | interactions.json | 82 curated drug pairs |
@@ -246,13 +275,12 @@ PharmaShield AI is built for **educational and hackathon purposes only**. It is 
 ---
 
 ## Team
-- Chaithra P (Backend & ML)  
-  🔗 LinkedIn: https://linkedin.com/in/chaithra-p-codes  
 
-- Aarathi M Iyer(Frontend)  
-  🔗 LinkedIn: https://linkedin.com/in/aarathi-iyer  
+- **Chaithra P** (Backend & ML)  
+  🔗 [linkedin.com/in/chaithra-p-codes](https://linkedin.com/in/chaithra-p-codes)
 
-- Abhinand J Prakash (AI-Integration)  
-  🔗 LinkedIn: https://linkedin.com/in/abhinand-j-prakash
+- **Aarathi M Iyer** (Frontend)  
+  🔗 [linkedin.com/in/aarathi-iyer](https://linkedin.com/in/aarathi-iyer)
 
-PharmaShield AI is built for **educational and hackathon purposes only**. It is not a substitute for professional medical advice. Always consult a licensed healthcare provider before making any medical decision.
+- **Abhinand J Prakash** (AI Integration)  
+  🔗 [linkedin.com/in/abhinand-j-prakash](https://linkedin.com/in/abhinand-j-prakash)
