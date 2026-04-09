@@ -1,11 +1,7 @@
-/* ================================================
+/* 
    PharmaShield AI — Style
-   Fonts : Syne (display) + Space Mono (data)
    Themes: Dark (default) + Light
-   ================================================ */
-
    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
    /* ─── DARK THEME (default) ─── */
    :root,
    [data-theme="dark"] {

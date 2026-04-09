@@ -1,13 +1,3 @@
-// ================================================
-//   PharmaShield AI — script.js (v5 - Fixed)
-//   • ML risk scoring + confidence display
-//   • Per-pair ML breakdown cards (single winner stat)
-//   • Gender-aware condition prioritisation
-//   • Dark / Light theme toggle
-//   • Free-type dosage + ± stepper + presets
-//   • AI summary always matches ML risk level
-// ================================================
-
 const API_BASE = 'http://127.0.0.1:5000';
 
 // ─── Condition Data ───────────────────────────────
@@ -588,8 +578,6 @@ function renderMLSummary(data) {
 }
 
 // ─── AI Explanation ───────────────────────────────
-// Displays the explanation as-is from the backend (which now generates
-// risk-accurate text). No client-side override needed.
 function renderAIExplanation(data) {
   const box         = document.getElementById('aiBox');
   const explanation = data.ai_explanation || data.explanation;
@@ -604,7 +592,6 @@ function renderAIExplanation(data) {
 }
 
 // ─── Interaction Cards ────────────────────────────
-// severity from backend is now correctly mapped:
 //   ML "High"/"Critical" → "dangerous"
 //   ML "Moderate"        → "moderate"
 //   ML "Low"             → "safe"
@@ -657,7 +644,6 @@ function renderInteractionCards(data) {
 }
 
 // ─── ML Per-Pair Breakdown ────────────────────────
-// Shows ONLY the single winning risk label + confidence bar (not all 4 probabilities)
 function renderMLPairBreakdown(data) {
   let mlSection = document.getElementById('mlPairSection');
   if (!mlSection) {

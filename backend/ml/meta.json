@@ -23,5 +23,7 @@
     "High",
     "Critical"
   ],
-  "feature_count": 18
+  "feature_count": 18,
+  "max_dose": 1000.0,
+  "max_qty_ratio": 10.0
 }

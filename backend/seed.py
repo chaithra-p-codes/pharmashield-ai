@@ -62,7 +62,7 @@ def seed_database():
         print(f"   → {Medicine.query.count()} medicines loaded")
         print(f"   → {SideEffect.query.count()} side effect entries loaded")
         print(f"   → {Alternative.query.count()} alternative entries loaded")
-        print("\n🚀 You can now run: python app.py")
+        print("\n You can now run: python app.py")
 
 
 if __name__ == '__main__':
