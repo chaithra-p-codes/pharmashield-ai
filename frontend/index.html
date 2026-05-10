@@ -1,175 +1,137 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PharmaShield AI — Drug Interaction Checker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaShield AI</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ml_style.css" />
-  <link rel="icon" type="image/png" href="favicon-32x32.png"/>
+  <link rel="stylesheet" href="style.css">
+   <link rel="icon" type="image/png" href="favicon-32x32.png"/>
 </head>
+
 <body>
 
-  <div class="bg-grid"></div>
-  <div class="bg-glow"></div>
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
 
-  <div class="app-wrapper">
+<!-- NAVBAR -->
+<nav style="display:flex; justify-content:space-between; align-items:center; padding:20px 40px;">
+  <div class="logo">
+    <span class="logo-icon">⬡</span>
+    <div class="logo-text">
+      <span class="logo-main">PharmaShield</span>
+      <span class="logo-sub">AI</span>
+    </div>
+  </div>
 
-    <!-- Header -->
-    <header class="header">
-      <div class="header-top">
-        <div class="logo">
-          <span class="logo-icon">⬡</span>
-          <div class="logo-text">
-            <span class="logo-main">PharmaShield</span>
-            <span class="logo-sub">AI</span>
-          </div>
-        </div>
-        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light / dark">
-          <span class="theme-icon" id="themeIcon">☀</span>
-        </button>
-         <span id="mlStatusBadge" class="ml-badge" style="display:none"></span>
-      </div>
-      <p class="tagline">Real-time drug interaction detection & risk analysis</p>
-    </header>
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <span id="themeIcon">☀</span>
+  </button>
+</nav>
 
-    <!-- Main Card -->
-    <main class="main-card">
+<!-- HERO -->
+<section style="text-align:center; padding:80px 20px 40px; max-width:900px; margin:auto;">
 
-      <!-- Patient Profile -->
-      <section class="patient-section">
-        <h2 class="section-title">Patient Profile <span class="optional-tag">optional</span></h2>
+  <h1 style="font-size:3rem; font-weight:800; line-height:1.2;">
+    Safer Medicines.<br>
+    <span style="color:var(--teal);">Powered by AI.</span>
+  </h1>
 
-        <div class="patient-grid">
-          <div class="field-group">
-            <label class="field-label">Age</label>
-            <input type="number" id="patientAge" class="field-input" placeholder="e.g. 65" min="1" max="120"/>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Weight (kg)</label>
-            <input type="number" id="patientWeight" class="field-input" placeholder="e.g. 70" min="1" max="300"/>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Gender</label>
-            <div class="gender-group" id="genderGroup">
-              <button class="gender-btn" data-val="male"   onclick="selectGender(this)">♂ Male</button>
-              <button class="gender-btn" data-val="female" onclick="selectGender(this)">♀ Female</button>
-              <button class="gender-btn" data-val="other"  onclick="selectGender(this)">⊘ Other</button>
-            </div>
-          </div>
-        </div>
+  <p style="margin-top:20px; color:var(--text-dim); font-size:1rem;">
+    Detect dangerous drug interactions instantly using intelligent analysis.
+  </p>
 
-        <!-- Conditions block — JS populates chips -->
-        <div class="field-group condition-field">
-          <div class="condition-label-row">
-            <label class="field-label">
-              Conditions <span class="optional-tag">select all that apply</span>
-            </label>
-            <span class="condition-gender-hint" id="conditionGenderHint"></span>
-          </div>
+  <button onclick="goToApp()" 
+    style="
+      margin-top:30px;
+      padding:16px 30px;
+      font-size:1rem;
+      border-radius:12px;
+      border:1px solid var(--border-hover);
+      background:var(--teal-dim);
+      color:var(--teal);
+      font-weight:700;
+      cursor:pointer;
+      transition:0.3s;
+    "
+    onmouseover="this.style.boxShadow='0 0 20px var(--teal-dim)'"
+    onmouseout="this.style.boxShadow='none'"
+  >
+    Start Analysis →
+  </button>
 
-          <!-- Priority / gender-specific conditions -->
-          <div class="condition-section" id="prioritySection" style="display:none">
-            <span class="condition-section-label" id="priorityLabel"></span>
-            <div class="condition-tags-wrapper" id="priorityChips"></div>
-          </div>
+</section>
 
-          <!-- General conditions always visible -->
-          <div class="condition-section">
-            <span class="condition-section-label" id="generalLabel">General</span>
-            <div class="condition-tags-wrapper" id="generalChips"></div>
-          </div>
-        </div>
-      </section>
+<!-- FEATURES GRID -->
+<section style="padding:60px 20px; max-width:1000px; margin:auto;">
 
-      <div class="divider"></div>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;">
 
-      <!-- Medicine Input -->
-      <section class="input-section">
-        <h2 class="section-title">Enter Medicines</h2>
-        <p class="section-desc">
-          Type a medicine and press <kbd>Enter</kbd> or <kbd>,</kbd> to add. Set dosage (mg) on each tag.
-        </p>
+    <div style="padding:20px; border:1px solid var(--border); border-radius:16px; background:var(--surface);">
+      <h3 style="color:var(--teal); margin-bottom:10px;">⚡ Instant Detection</h3>
+      <p style="color:var(--text-dim); font-size:0.9rem;">
+        Get immediate insights into harmful drug combinations.
+      </p>
+    </div>
 
-        <div class="tag-input-wrapper" id="tagWrapper">
-          <div class="tags-container" id="tagsContainer"></div>
-          <input
-            type="text"
-            id="medicineInput"
-            class="tag-input"
-            placeholder="e.g. warfarin, aspirin..."
-            autocomplete="off"
-          />
-        </div>
-        <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
+    <div style="padding:20px; border:1px solid var(--border); border-radius:16px; background:var(--surface);">
+      <h3 style="color:var(--teal); margin-bottom:10px;">🧠 AI Insights</h3>
+      <p style="color:var(--text-dim); font-size:0.9rem;">
+        Understand risks with clear AI-generated explanations.
+      </p>
+    </div>
 
-        <div class="quick-add">
-          <span class="quick-label">Quick add:</span>
-          <button class="chip" onclick="addMedicine('warfarin')">warfarin</button>
-          <button class="chip" onclick="addMedicine('aspirin')">aspirin</button>
-          <button class="chip" onclick="addMedicine('ibuprofen')">ibuprofen</button>
-          <button class="chip" onclick="addMedicine('metformin')">metformin</button>
-          <button class="chip" onclick="addMedicine('paracetamol')">paracetamol</button>
-        </div>
-
-        <button class="check-btn" id="checkBtn" onclick="checkInteractions()">
-          <span class="btn-icon">⬡</span>
-          Analyze Interactions
-        </button>
-      </section>
-
-      <!-- Loading -->
-      <div class="loading-state" id="loadingState" style="display:none">
-        <div class="loading-spinner"></div>
-        <p class="loading-text">Analyzing drug interactions...</p>
-      </div>
-
-      <!-- Results -->
-      <section class="results-section" id="resultsSection" style="display:none">
-
-        <div class="risk-banner" id="riskBanner">
-          <div class="risk-icon" id="riskIcon"></div>
-          <div class="risk-info">
-            <span class="risk-label" id="riskLabel"></span>
-            <span class="risk-detail" id="riskDetail"></span>
-          </div>
-          <div class="risk-badge" id="riskBadge"></div>
-        </div>
-
-        <div class="ai-box" id="aiBox" style="display:none">
-          <div class="ai-header">
-            <span class="ai-dot"></span>
-            <span class="ai-title">AI Safety Summary</span>
-          </div>
-          <p class="ai-text" id="aiText"></p>
-        </div>
-
-        <div class="interactions-list" id="interactionsList"></div>
-        <div class="stats-bar" id="statsBar"></div>
-
-        <div class="action-row">
-          <button class="action-btn" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
-          <button class="action-btn" onclick="toggleHistory()">🕓 View History</button>
-        </div>
-
-        <div class="history-panel" id="historyPanel" style="display:none">
-          <h3 class="history-title">Recent Checks</h3>
-          <div id="historyList"></div>
-        </div>
-
-        <button class="reset-btn" onclick="resetApp()">← Check Another Combination</button>
-      </section>
-
-    </main>
-
-    <footer class="footer">
-      <p>⚠️ For educational purposes only. Always consult a licensed healthcare provider.</p>
-    </footer>
+    <div style="padding:20px; border:1px solid var(--border); border-radius:16px; background:var(--surface);">
+      <h3 style="color:var(--teal); margin-bottom:10px;">👤 Personalized</h3>
+      <p style="color:var(--text-dim); font-size:0.9rem;">
+        Tailored analysis based on patient conditions and profile.
+      </p>
+    </div>
 
   </div>
 
-  <script src="script.js"></script>
+</section>
+
+<!-- CTA SECTION -->
+<section style="text-align:center; padding:60px 20px;">
+
+  <h2 style="font-size:1.6rem;">Start using PharmaShield AI today</h2>
+
+  <button onclick="goToApp()" 
+    style="
+      margin-top:20px;
+      padding:14px 25px;
+      border-radius:10px;
+      border:none;
+      background:var(--teal);
+      color:black;
+      font-weight:700;
+      cursor:pointer;
+    "
+  >
+    Go to App
+  </button>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>⚠️ For educational purposes only. Always consult a licensed healthcare provider.</p>
+</footer>
+
+<script>
+function goToApp(){
+  window.location.href = "index.html";
+}
+
+function toggleTheme(){
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeIcon').textContent = isDark ? '☽' : '☀';
+}
+</script>
 </body>
 </html>
