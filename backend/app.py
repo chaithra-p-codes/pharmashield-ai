@@ -21,7 +21,7 @@ from groq import Groq
 from ml.predict import predict_interactions, is_model_ready
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins="*")
 
 # ── Configure Groq ─────────────────────────────────────────────────────────────
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
