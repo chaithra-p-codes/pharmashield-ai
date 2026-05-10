@@ -30,21 +30,21 @@ groq_client  = None
 if GROQ_API_KEY:
     try:
         groq_client = Groq(api_key=GROQ_API_KEY)
-        print("✅ Groq AI (Llama 3) loaded successfully.")
+        print("Groq AI (Llama 3) loaded successfully.")
     except Exception as e:
-        print(f"⚠️  Groq setup failed: {e}")
+        print(f" Groq setup failed: {e}")
         groq_client = None
 else:
-    print("⚠️  GROQ_API_KEY not found in .env — will use fallback explanation.")
+    print(" GROQ_API_KEY not found in .env — will use fallback explanation.")
 
 # ── Load interactions.json ─────────────────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 try:
     with open(os.path.join(BASE_DIR, "interactions.json"), "r") as f:
         INTERACTIONS_DB = json.load(f)["interactions"]
-    print(f"✅ interactions.json loaded — {len(INTERACTIONS_DB)} entries.")
+    print(f"interactions.json loaded — {len(INTERACTIONS_DB)} entries.")
 except Exception as e:
-    print(f"⚠️  Could not load interactions.json: {e}")
+    print(f" Could not load interactions.json: {e}")
     INTERACTIONS_DB = []
 
 # ── Severity mappings ──────────────────────────────────────────────────────────
@@ -189,7 +189,7 @@ def build_prompt(medicines: list, gender: str,
 def call_groq(prompt: str):
     """Returns AI-generated text string, or None on failure."""
     try:
-        print("🔄 Calling Groq API...")
+        print("Calling Groq API...")
         response = groq_client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
@@ -210,12 +210,12 @@ def call_groq(prompt: str):
             temperature=0.3,
         )
         text = (response.choices[0].message.content or "").strip()
-        print(f"✅ Groq response received ({len(text)} chars).")
+        print(f"Groq response received ({len(text)} chars).")
         return text if text else None
     except Exception as e:
         import traceback
         traceback.print_exc()
-        print(f"⚠️  Groq API call failed: {e}")
+        print(f" Groq API call failed: {e}")
         return None
 
 #  ROUTES
@@ -260,16 +260,16 @@ def check():
         for m in medicines if m.get("name")
     ]
 
-    print(f"💊 Drugs for ML: {drugs_for_ml}")
+    print(f" Drugs for ML: {drugs_for_ml}")
 
     # ── Step 1: ML risk scoring ────────────────────────────────────────────────
     try:
         ml_result = predict_interactions(drugs_for_ml, gender, conditions)
-        print(f"✅ ML: {ml_result.get('overall_risk')} | "
+        print(f"ML: {ml_result.get('overall_risk')} | "
               f"conf: {ml_result.get('confidence'):.3f} | "
               f"pairs: {len(ml_result.get('pairs', []))}")
     except FileNotFoundError:
-        print("❌ ML model not found — run: python ml/train_model.py")
+        print(" ML model not found — run: python ml/train_model.py")
         ml_result = {
             "overall_risk":  "Low",
             "overall_score": 0,
@@ -280,7 +280,7 @@ def check():
         }
     except Exception as e:
         import traceback; traceback.print_exc()
-        print(f"❌ ML prediction error: {e}")
+        print(f" ML prediction error: {e}")
         ml_result = {
             "overall_risk":  "Low",
             "overall_score": 0,
@@ -330,14 +330,14 @@ def check():
         if ai_text:
             explanation = ai_text
             ai_source   = "groq"
-            print("✅ Groq explanation set.")
+            print("Groq explanation set.")
         else:
-            print("⚠️  Groq returned empty — using fallback.")
+            print(" Groq returned empty — using fallback.")
             explanation = generate_fallback_explanation(
                 medicines_enriched, gender, conditions, ml_result
             )
     else:
-        print("⚠️  Groq not configured — using fallback.")
+        print("Groq not configured — using fallback.")
         explanation = generate_fallback_explanation(
             medicines_enriched, gender, conditions, ml_result
         )
@@ -410,9 +410,11 @@ def model_status():
 
 #  ENTRY POINT
 if __name__ == "__main__":
-    print(f"🔑 GROQ_API_KEY found: {bool(GROQ_API_KEY)}")
+    print(f"GROQ_API_KEY found: {bool(GROQ_API_KEY)}")
     if not is_model_ready():
-        print("⚠️  ML model not found. Run: python ml/train_model.py")
+        print("ML model not found. Run: python ml/train_model.py")
     else:
-        print("✅ ML model loaded and ready.")
-    app.run(debug=True, port=5000, use_reloader=False)
+        print("ML model loaded and ready.")
+    
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
